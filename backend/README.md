@@ -1,17 +1,18 @@
-# Project Title
+# Backend for Detecting Incident By Mining Tweets
 
-Backend for Detecting Incident By Mining Tweets
-
-### Prerequisites
+## Prerequisites
 
 Python 2.7.10
+
 tweepy
+
 pydocumentdb
+
 json
 
 ## Running the program
 
-python2 harvester.py <config> <mode> <auth_index>
+python2 harvester.py \<config\> \<mode\> \<auth_index\>
 
 Where: <config>     -- A json file with configuration information.
        <mode>       -- Mode of usage (stream or search).

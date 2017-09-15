@@ -14,11 +14,14 @@ json
 
 python2 harvester.py \<config\> \<mode\> \<auth_index\>
 
-Where: <config>     -- A json file with configuration information.
-       <mode>       -- Mode of usage (stream or search).
-       <auth_index> -- Index for authentification information in config.
+Where:
+\<config\>   -- A json file with configuration information.
+\<mode\>     -- Mode of usage (stream or search).
+<auth_index> -- Index for authentification information in config.
 
-Example: python2 harvester.py config.json stream 0
+### Example
+
+python2 harvester.py config.json stream 0
 
 ## License
 

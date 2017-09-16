@@ -74,6 +74,11 @@ class EventMap extends Component {
       type: 'point',
       title: 'YOU',
       id: 'Your Location'
+     }, {
+      coordinates: [latitude, longitude],
+      type: 'point',
+      title: 'YOU',
+      id: 'Your Location'
      }]
     });
     this._map.setCenterCoordinate(this.state.center.latitude, this.state.center.longitude);

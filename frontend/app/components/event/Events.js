@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {StyleSheet,TouchableHighlight,View,Image,Text,FlatList} from 'react-native'
-import events from './../data/events.json'
-import comments from './../data/comments.json'
+import events from './../Data/Events.json'
+import comments from './../Data/comments.json'
 import { List, ListItem } from "react-native-elements";
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { StackNavigator } from 'react-navigation';

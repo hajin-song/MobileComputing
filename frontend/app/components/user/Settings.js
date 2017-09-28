@@ -40,7 +40,7 @@ class Update extends Component {
   async fetchUserData() {
     let access_token = this.state.accessToken;
     try {
-      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/users/"+access_token+"/edit");
+      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/Users/"+access_token+"/edit");
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
@@ -63,7 +63,7 @@ class Update extends Component {
     this.setState({showProgress: true});
     let access_token = this.state.accessToken;
     try {
-      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/users/"+access_token, {
+      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/Users/"+access_token, {
                               method: 'PATCH',
                               headers: {
                                 'Accept': 'application/json',

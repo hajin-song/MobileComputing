@@ -5,6 +5,6 @@ export default class Map extends Component {
 
   render() 
   {
-    return(<Image source = {require('./map.png')}/>);
+    return(<Image source = {require('./Map.png')}/>);
   }
 }

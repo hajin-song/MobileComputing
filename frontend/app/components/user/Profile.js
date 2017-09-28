@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import {Alert,Image,Button, StyleSheet,FlatList,TextInput,ActivityIndicator,TouchableHighlight,AsyncStorage,Text,View} from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";
 
-import { onSignOut } from "./../../auth";
+import { onSignOut } from "./../../Auth";
 
 /* data imports */
-import user from './../data/user.json';
-import posts from './../data/posts.json';
-import comments from './../data/comments.json';
+import user from './../Data/User.json';
+import posts from './../Data/Posts.json';
+import comments from './../Data/comments.json';
 
 
 

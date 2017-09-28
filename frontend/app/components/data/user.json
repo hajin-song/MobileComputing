@@ -3,7 +3,7 @@
   "ID" : 1,
   "Name" : "Someone",
   "Description" : "Something about someon",
-  "ProfilePic" :"./../data/profile.png",
+  "ProfilePic" :"./../Data/profile.png",
   "DOB" : "1/9/1990",
   "DateRegistered" : "1/9/2017",
   "Location" : [37.8136, 144.9631],

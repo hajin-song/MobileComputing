@@ -3,7 +3,7 @@ import { View, Button,Text, FlatList, ActivityIndicator } from "react-native";
 import { List, ListItem, SearchBar } from "react-native-elements";
 
 //@delete data import
-import subscriptions from './../data/authorities.json';
+import subscriptions from './../Data/Authorities.json';
 
 
 

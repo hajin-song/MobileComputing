@@ -1,6 +1,10 @@
+/**
+ * index
+ * Entry point for the application
+ */
 import React from "react";
 import { createRootNavigator } from "./router";
-import { isSignedIn } from "./auth";
+import { isSignedIn } from "./Auth";
 
 export default class App extends React.Component {
   constructor(props) {

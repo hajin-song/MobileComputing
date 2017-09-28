@@ -58,7 +58,7 @@ storePicture(){
          body: data,
         }
 
-        fetch("https://postman-echo.com/post", config)
+        fetch("https://Postman-echo.com/Post", config)
          .then((responseData) => {
              // Log the response form the server
              // Here we get what we sent to Postman back

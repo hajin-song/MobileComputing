@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component } from 'react';
 import { StyleSheet, TouchableHighlight, AsyncStorage, Text, View} from 'react-native';
-import Maps from '../map/MapView.js'
+import Maps from '../Map/MapView.js'
 
 const ACCESS_TOKEN = 'access_token';
 

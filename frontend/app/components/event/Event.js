@@ -3,7 +3,7 @@ import {StyleSheet,TouchableHighlight,FlatList,View,Image,Text} from 'react-nati
 import { List, ListItem } from "react-native-elements";
 
 // @delete data imports 
-import event from './../data/event.json'
+import event from './../Data/Event.json'
 
 export default class Event extends Component{
 

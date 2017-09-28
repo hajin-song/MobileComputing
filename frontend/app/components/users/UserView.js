@@ -3,9 +3,9 @@ import { View, Button,Text, FlatList, ActivityIndicator } from "react-native";
 
 
 // @delete data imports 
-import user from './../data/user.json';
-import posts from './../data/posts.json';
-import comments from './../data/comments.json';
+import user from './../Data/user.json';
+import posts from './../Data/Posts.json';
+import comments from './../Data/comments.json';
 
  
 

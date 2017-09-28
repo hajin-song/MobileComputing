@@ -7,7 +7,7 @@ import {
   Text,
   View
 } from 'react-native';
-import { Navigator } from 'react-native-deprecated-custom-components';
+import { Navigator } from 'react-native-deprecated-custom-Components';
 import Login from './login';
 import Register from './register';
 import Root from './root';
@@ -15,7 +15,7 @@ import Profile from './root';
 
 import App from './home.js';
 import Update from './../user/update.js';
-import Events from './../event/Events.js';
+import Events from './../Event/Events.js';
 
 export default class ReactNativeRailsAuth extends Component {
 

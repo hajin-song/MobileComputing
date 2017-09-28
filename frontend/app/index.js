@@ -23,14 +23,12 @@ if(module.hot){
  });
 }
 
-
-
 export default class App extends Component {
  render() {
   console.log(store.getState());
   return (
    <Provider store={store}>
-    <AppNav />
+    <AppNav token={store.getState().Session.token} />
    </Provider>
   );
  }

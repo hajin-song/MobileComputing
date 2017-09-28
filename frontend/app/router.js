@@ -152,7 +152,7 @@ const SignedInNav = StackNavigator(
  { headerMode: "none", mode: "modal", initialRouteName: "SignedIn" }
 );
 
-const SingedOutNav = StackNavigator(
+const SignedOutNav = StackNavigator(
  { SignedOut: { screen: SignedOut, navigationOptions: { gesturesEnabled: false } } },
  { headerMode: "none", mode: "modal", initialRouteName: "SignedOut" }
 );
@@ -160,24 +160,14 @@ const SingedOutNav = StackNavigator(
 const mapStateToProps = (state) => {
  return {
   token: state.Session.token
- };
+ }
 };
 
-const mapDispatchToProps = (dispatch) => {
- return ({ });
-}
-class AppNav extends Component {
- render() {
-  if (true) {
-   return(
-    <SingedOutNav />
-   );
-  }
-  return (
-   <SignedInNav />
-  );
+const AppNav = ({token}) => {
+ if(token==""){
+  return <SignedOutNav />;
  }
+ return <SignedInNav />
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppNav);
+export default connect(mapStateToProps)(AppNav);

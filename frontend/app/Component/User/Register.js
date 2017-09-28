@@ -9,6 +9,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import { jsonToURLForm } from '../../Tool/DataFormat';
 
 class Register extends Component{
  constructor(props){
@@ -22,14 +23,7 @@ class Register extends Component{
  }
 
  __register(){
-  var formBody = [];
-  for(var prop in this.state){
-   var encodedKey = encodeURIComponent(prop);
-   var encodedValue = encodeURIComponent(this.state[prop]);
-   formBody.push(encodedKey + "=" + encodedValue);
-  };
-  formBody = formBody.join('&');
-  console.log(formBody);
+  let formBody = jsonToURLForm(this.state);
   fetch('http://eventchat.azurewebsites.net/api/auth/register/', {
    method: 'POST',
    headers: {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import AppContainer from './app/AppContainer'
+import App from './app/index'
 
 export default class EventChat extends Component {
   render() {
     return (
-      <AppContainer/>
+      <App/>
     );
   }
 }

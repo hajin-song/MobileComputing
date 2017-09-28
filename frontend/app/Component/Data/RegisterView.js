@@ -66,7 +66,7 @@ export default class RegisterView extends Component {
       }
       // Serialize and post the data
       const json = JSON.stringify(data);
-      fetch('http://localhost:3000/users/register', {
+      fetch('http://localhost:3000/Users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

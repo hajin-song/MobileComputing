@@ -1,7 +1,6 @@
 import React from "react";
 import { View } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
-import { onSignIn } from "./../../Auth.js";
 
 export default ({ navigation }) => (
   <View style={{ paddingVertical: 20 }}>
@@ -18,7 +17,7 @@ export default ({ navigation }) => (
         backgroundColor="#03A9F4"
         title="SIGN UP"
         onPress={() => {
-          onSignIn().then(() => this.props.navigation.navigate("SignedIn"));
+         console.log("whee");
         }}
       />
       <Button

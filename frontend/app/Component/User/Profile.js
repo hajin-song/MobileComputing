@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import {Alert,Image,Button, StyleSheet,FlatList,TextInput,ActivityIndicator,TouchableHighlight,AsyncStorage,Text,View} from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";
 
-import { onSignOut } from "./../../Auth";
-
 /* data imports */
 import user from './../Data/User.json';
 import posts from './../Data/Posts.json';
@@ -12,7 +10,7 @@ import comments from './../Data/comments.json';
 
 
 
- 
+
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +29,7 @@ class Profile extends Component {
     this.setState({showProgress: true})
     this.props.navigation.navigate("Logout")
     }
- 
+
   renderSeparator = () => {
     return (
       <View
@@ -49,7 +47,7 @@ class Profile extends Component {
    return (
        <View style={[styles.row]}>
              <View style={[styles.box]}>
-                    <Image style={styles.stretch}  source={user.image}/> 
+                    <Image style={styles.stretch}  source={user.image}/>
              </View>
              <View style={[styles.box]}>
                     <Text > {user.Name} </Text>
@@ -89,14 +87,14 @@ class Profile extends Component {
 
   render() {
     return (
-      
+
       <View>
        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
             <ListItem
-              
+
               title={`${item.Name}`}
               subtitle={item.Details}
               avatar={{uri:item.image }}
@@ -118,7 +116,7 @@ class Profile extends Component {
           data={this.state.comments}
           renderItem={({ item }) => (
             <ListItem
-              
+
               title={`${item.Comment}`}
               subtitle={item.EventID}
               avatar={{uri:item.image }}
@@ -133,7 +131,7 @@ class Profile extends Component {
           onEndReachedThreshold={50}
         />
       </List>
- 
+
 
 
     <View style={[styles.row]}>
@@ -149,16 +147,16 @@ class Profile extends Component {
          <Button
         backgroundColor="#03A9F4"
         title="Log Out"
-        onPress={() => onSignOut().then(() =>  this.props.navigation.navigate("SignedOut"))}
+        onPress={() => console.log("sign out action")}
         />
       </View>
     </View>
- 
+
     </View>
     );
   }
 }
- 
+
 const styles = StyleSheet.create({
    stretch: {
     width: 80,

@@ -1,6 +1,15 @@
 'use strict';
 import React, { Component } from 'react';
-import {Alert, StyleSheet,TextInput,ActivityIndicator,TouchableHighlight,AsyncStorage,Text,View} from 'react-native';
+import {
+ Alert,
+ StyleSheet,
+ TextInput,
+ ActivityIndicator,
+ TouchableHighlight,
+ AsyncStorage,
+ Text,
+ View
+} from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
 
@@ -9,7 +18,7 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-    
+
       showProgress: false,
       accessToken: "",
     }
@@ -64,7 +73,7 @@ export default class Home extends Component {
   async onDelete(){
     let access_token = this.state.accessToken
     try {
-      let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/users/'+access_token,{
+      let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/Users/'+access_token,{
                               method: 'DELETE',
                             });
         let res = await response.text();
@@ -154,4 +163,3 @@ const styles = StyleSheet.create({
     marginTop: 20
   }
 });
-

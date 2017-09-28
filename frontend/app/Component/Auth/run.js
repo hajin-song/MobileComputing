@@ -7,14 +7,14 @@ import {
   Text,
   View
 } from 'react-native';
-import { Navigator } from 'react-native-deprecated-custom-Components';
+import { Navigator } from 'react-native-deprecated-custom-components';
 import Login from './login';
 import Register from './register';
 import Root from './root';
 import Profile from './root';
 
 import App from './home.js';
-import Update from './../user/update.js';
+import Update from './../User/update.js';
 import Events from './../Event/Events.js';
 
 export default class ReactNativeRailsAuth extends Component {
@@ -59,4 +59,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
-

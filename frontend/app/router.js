@@ -1,37 +1,36 @@
-import React from "react";
+/**
+ * Router.js
+ * Navigation Routing for application
+ */
+
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { Platform, StatusBar } from "react-native";
-import { StackNavigator, TabNavigator } from "react-navigation";
+import { StackNavigator, TabNavigator, addNavigationHelpers } from "react-navigation";
 import { FontAwesome } from "react-native-vector-icons";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 
-import Login from './Components/Auth/login.js';
-import Register from './Components/Auth/register';
-import Root from './Components/Auth/root';
+import Login from './Component/User/SignIn.js';
+import Register from './Component/User/Register';
 
-import Settings from './Components/user/Settings';
-import Profile from './Components/user/Profile.js';
+import Settings from './Component/User/Settings';
+import Profile from './Component/User/Profile.js';
 
-import Events from './Components/event/Events.js';
-import EventMap from './Components/map/MapView.js';
-import Event from './Components/event/Event.js';
-import Post from './Components/post/Post.js';
-import Explore from './Components/users/Explore.js';
-import Subscriptions from './Components/users/Subscriptions.js';
-import Run from './Components/Auth/run.js';
-
+import Events from './Component/Event/Events.js';
+import EventMap from './Component/Map/MapView.js';
+import Event from './Component/Event/Event.js';
+import Post from './Component/Post/Post.js';
+import Explore from './Component/Users/Explore.js';
+import Subscriptions from './Component/Users/Subscriptions.js';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
 };
 
 export const SignedOut = StackNavigator({
- Run: {
-  screen: Run,
-  navigationOptions: { }
- },
  Login: {
   screen: Login,
   navigationOptions: ({ navigation }) =>{
@@ -148,22 +147,37 @@ export const SignedIn = TabNavigator(
 });
 
 
-export const createRootNavigator = (signedIn = false) => {
-  return StackNavigator(
-   {
-    SignedIn: {
-     screen: SignedIn,
-     navigationOptions: { gesturesEnabled: false}
-    },
-    SignedOut: {
-     screen: SignedOut,
-     navigationOptions: { gesturesEnabled: false }
-    }
-   },
-   {
-    headerMode: "none",
-    mode: "modal",
-    initialRouteName: signedIn ? "SignedIn" : "SignedOut"
-   }
-  );
+const SignedInNav = StackNavigator(
+ { SignedIn: { screen: SignedIn, navigationOptions: { gesturesEnabled: false} } },
+ { headerMode: "none", mode: "modal", initialRouteName: "SignedIn" }
+);
+
+const SingedOutNav = StackNavigator(
+ { SignedOut: { screen: SignedOut, navigationOptions: { gesturesEnabled: false } } },
+ { headerMode: "none", mode: "modal", initialRouteName: "SignedOut" }
+);
+
+const mapStateToProps = (state) => {
+ return {
+  token: state.Session.token
+ };
 };
+
+const mapDispatchToProps = (dispatch) => {
+ return ({ });
+}
+class AppNav extends Component {
+ render() {
+  if (true) {
+   return(
+    <SingedOutNav />
+   );
+  }
+  return (
+   <SignedInNav />
+  );
+ }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNav);

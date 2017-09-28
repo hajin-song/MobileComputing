@@ -2,35 +2,36 @@
  * index
  * Entry point for the application
  */
-import React from "react";
-import { createRootNavigator } from "./router";
-import { isSignedIn } from "./Auth";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+import React, { Component } from "react";
+import AppNav  from "./router";
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import { addNavigationHelpers } from 'react-navigation';
 
-    this.state = {
-      signedIn: false,
-      checkedSignIn: false
-    };
-  }
+import Session from './Reducer/Session';
 
-  componentWillMount() {
-    isSignedIn()
-      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
-      .catch(err => alert("An error occurred"));
-  }
+const Reducer = combineReducers({
+ Session
+});
 
-  render() {
-    const { checkedSignIn, signedIn } = this.state;
+const store = createStore(Reducer, {});
+if(module.hot){
+ module.hot.accept('./Reducer', () => {
+  const nextRootReducer = require('./Reducer/Session');
+  store.replaceReducer(nextRootReducer);
+ });
+}
 
-    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
-    if (!checkedSignIn) {
-      return null;
-    }
 
-    const Layout = createRootNavigator(signedIn);
-    return <Layout />;
-  }
+
+export default class App extends Component {
+ render() {
+  console.log(store.getState());
+  return (
+   <Provider store={store}>
+    <AppNav />
+   </Provider>
+  );
+ }
 }

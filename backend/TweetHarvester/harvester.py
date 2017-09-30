@@ -22,7 +22,6 @@ ERROR = 2
 
 
 def get_database(config):
-    """Return handle to couchdb as defined in config file."""
     with open(config) as fp:
         jconfig = json.load(fp)
 
@@ -33,11 +32,19 @@ def get_database(config):
             # Check if database exists, create if not.
             db_name = jconfig['DatabaseName']
             try:
-                db = client.CreateDatabase({"id":db_name})
-                print('Database with ID : \'{0}\'  created'.format(db_name))
+                #db = client.CreateDatabase({"id":db_name})
+                #print('Database with ID : \'{0}\'  created'.format(db_name))
                 # Create a collection
-                collection = client.CreateCollection(db['_self'], {'id': jconfig['CollectionName']})
-                return client, collection
+                #collection = client.ReadCollection(db['_self'], {'id': jconfig['CollectionName']})
+                try:
+                    collection = client.ReadCollection('dbs/raw_tweets_db/colls/raw_tweets_coll')
+                    return client, collection
+                except errors.DocumentDBError as e:
+                    if e.status_code == 404:
+                        print('Create new collection')
+                        collection = client.CreateCollection('dbs/raw_tweets_db', {'id': jconfig['CollectionName']})
+                        return client, collection
+
             except errors.DocumentDBError as e:
                 if e.status_code == 409:
                     print('A database with id \'{0}\' already exists'.format(db_name))
@@ -129,7 +136,7 @@ if __name__ == "__main__":
         box = get_box(config)
         stream_listener = TwitterStreamListener(client, coll)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-        stream.filter(locations=box, track=['hail','fire', 'crash'])
+        stream.filter(locations=box)
 
     elif mode == 'search':
         geo = get_geocode(config)

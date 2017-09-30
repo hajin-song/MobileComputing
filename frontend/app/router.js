@@ -5,13 +5,15 @@
 
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Platform, StatusBar } from "react-native";
+import { View, Platform, StatusBar } from "react-native";
 import { StackNavigator, TabNavigator, addNavigationHelpers } from "react-navigation";
 import { FontAwesome } from "react-native-vector-icons";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
+
+import Main from './Component/Map/MapView';
 
 import Login from './Component/Auth/SignIn.js';
 import Register from './Component/Auth/Register';
@@ -31,6 +33,9 @@ const headerStyle = {
 };
 
 export const SignedOut = StackNavigator({
+ Main: {
+  screen: EventMap
+ },
  Login: {
   screen: Login,
   navigationOptions: ({ navigation }) =>{
@@ -147,16 +152,6 @@ export const SignedIn = TabNavigator(
 });
 
 
-const SignedInNav = StackNavigator(
- { SignedIn: { screen: SignedIn, navigationOptions: { gesturesEnabled: false} } },
- { headerMode: "none", mode: "modal", initialRouteName: "SignedIn" }
-);
-
-const SignedOutNav = StackNavigator(
- { SignedOut: { screen: SignedOut, navigationOptions: { gesturesEnabled: false } } },
- { headerMode: "none", mode: "modal", initialRouteName: "SignedOut" }
-);
-
 const mapStateToProps = (state) => {
  return {
   token: state.Session.token
@@ -165,9 +160,11 @@ const mapStateToProps = (state) => {
 
 const AppNav = ({token}) => {
  if(token==""){
-  return <SignedOutNav />;
+  return (
+    <SignedOut />
+  );
  }
- return <SignedInNav />
+ return <SignedIn />
 }
 
 export default connect(mapStateToProps)(AppNav);

@@ -71,7 +71,7 @@ class SignIn extends Component{
        onChange={Password => this.setState({Password})}
       />
       <NavButton title="Sign In" onPress={ () => this.__authenticate() } />
-      <NavButton title="Register" onPress={ () => this.props.navigation.navigate("Register") } />
+      <NavButton title="Back" onPress={ () => this.props.navigation.navigate("Main") } />
      </Card>
    </View>
   );

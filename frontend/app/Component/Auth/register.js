@@ -1,32 +1,74 @@
-import React from "react";
+/**
+ * Register.js
+ * View for Register Page
+ * Created On: 29-Sept-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 29-Spet-2017
+ * Last Modified By: Ha Jin Song
+ */
+import React, { Component } from "react";
 import { View } from "react-native";
-import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 
-export default ({ navigation }) => (
-  <View style={{ paddingVertical: 20 }}>
-    <Card>
-      <FormLabel>Email</FormLabel>
-      <FormInput placeholder="Email address..." />
-      <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Password..." />
-      <FormLabel>Confirm Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Confirm Password..." />
+import { Card } from "react-native-elements";
+import { FormField, FormFieldPassword } from '../Common/FormField';
+import { NavButton } from '../Common/Button';
 
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="SIGN UP"
-        onPress={() => {
-         console.log("whee");
-        }}
+import { jsonToURLForm } from '../../Tool/DataFormat';
+
+class Register extends Component{
+ constructor(props){
+  super(props);
+  this.state = {
+   Username: '',
+   Password: '',
+   ConfirmPassword: ''
+  }
+  this.__register = this.__register.bind(this);
+ }
+
+ __register(){
+  let formBody = jsonToURLForm(this.state);
+  fetch('http://eventchat.azurewebsites.net/api/auth/register/', {
+   method: 'POST',
+   headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   body: formBody
+  }).then( (res) => {
+   this.props.navigation.navigate("Login");
+  }).catch( (err) => {
+    console.log(err);
+  });
+ }
+ render(){
+  return (
+   <View style={{ paddingVertical: 20 }}>
+     <Card>
+      <FormField
+       title="Email"
+       defaultValue={this.state.Username}
+       placeholder="Email Address"
+       onChange={Username => this.setState({Username})}
       />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="transparent"
-        textStyle={{ color: "#bcbec1" }}
-        title="Sign In"
-        onPress={() =>  this.props.navigation.navigate("Login")}
+      <FormFieldPassword
+       title="Password"
+       defaultValue={this.state.Password}
+       placeholder="Password"
+       onChange={Password => this.setState({Password})}
       />
-    </Card>
-  </View>
-);
+      <FormFieldPassword
+       title="Confirm Password"
+       defaultValue={this.state.ConfirmPassword}
+       placeholder="Confirm Password"
+       onChange={ConfirmPassword => this.setState({ConfirmPassword})}
+      />
+      <NavButton title="Sign Up" onPress={ () => this.__register() } />
+      <NavButton title="Sign In" onPress={ () => this.props.navigation.navigate("Login") } />
+     </Card>
+   </View>
+  )
+ }
+}
+
+export default Register;

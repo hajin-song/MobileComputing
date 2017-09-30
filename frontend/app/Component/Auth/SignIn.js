@@ -1,10 +1,20 @@
+/**
+ * SignIn.js
+ * Log In View
+ * Created On: 29-Sept-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 29-Sept-2017
+ * Last Modified By: 29-Sept-2017
+ */
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { View } from "react-native";
-import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import { Card } from "react-native-elements";
+
+import { FormField, FormFieldPassword } from '../Common/FormField';
+import { NavButton } from '../Common/Button';
 
 import SessionActions from '../../Action/Session';
-
 import { jsonToURLForm } from '../../Tool/DataFormat';
 
 const mapStateToProps = (state) => {
@@ -24,10 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 class SignIn extends Component{
  constructor(props){
   super(props);
-  this.state = {
-   Username: '',
-   Password: ''
-  };
+  this.state = { Username: '', Password: '' };
   this.__authenticate = this.__authenticate.bind(this);
  }
  __authenticate(){
@@ -51,40 +58,25 @@ class SignIn extends Component{
   return (
    <View style={{ paddingVertical: 20 }}>
      <Card>
-       <FormLabel>Email</FormLabel>
-       <FormInput
-        value={this.state.Username}
-        onChangeText={Username => this.setState({Username})}
-        placeholder="Email address..."
-       />
-
-       <FormLabel>Password</FormLabel>
-       <FormInput
-        secureTextEntry
-        value={this.state.Password}
-        onChangeText={Password => this.setState({Password})}
-        secureTextEntry
-        placeholder="Password..."
-       />
-
-       <Button
-         buttonStyle={{ marginTop: 20 }}
-         backgroundColor="#03A9F4"
-         title="Sign In"
-         onPress={ () => this.__authenticate()}
-       />
-       <Button
-         buttonStyle={{ marginTop: 20 }}
-         backgroundColor="#03A9F4"
-         title="Register"
-         onPress={() =>  this.props.navigation.navigate("Register")}
-       />
+      <FormField
+       title="Email"
+       defaultValue={this.state.Username}
+       placeholder="Email Address"
+       onChange={Username => this.setState({Username})}
+      />
+      <FormFieldPassword
+       title="Password"
+       defaultValue={this.state.Password}
+       placeholder="Password"
+       onChange={Password => this.setState({Password})}
+      />
+      <NavButton title="Sign In" onPress={ () => this.__authenticate() } />
+      <NavButton title="Register" onPress={ () => this.props.navigation.navigate("Register") } />
      </Card>
    </View>
   );
  }
 };
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

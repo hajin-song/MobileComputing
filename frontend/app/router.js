@@ -13,8 +13,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 
-import Login from './Component/User/SignIn.js';
-import Register from './Component/User/Register';
+import Login from './Component/Auth/SignIn.js';
+import Register from './Component/Auth/Register';
 
 import Settings from './Component/User/Settings';
 import Profile from './Component/User/Profile.js';

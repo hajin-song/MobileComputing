@@ -63,8 +63,7 @@ class Register extends Component{
        placeholder="Confirm Password"
        onChange={ConfirmPassword => this.setState({ConfirmPassword})}
       />
-      <NavButton title="Sign Up" onPress={ () => this.__register() } />
-      <NavButton title="Back" onPress={ () => this.props.navigation.navigate("Main") } />
+      <NavButton title="Register" onPress={ () => this.__register() } />
      </Card>
    </View>
   )

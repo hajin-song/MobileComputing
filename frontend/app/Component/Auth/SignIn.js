@@ -4,7 +4,7 @@
  * Created On: 29-Sept-2017
  * Created By: Ha Jin Song
  * Last Modified On: 29-Sept-2017
- * Last Modified By: 29-Sept-2017
+ * Last Modified By: Ha Jin Song
  */
 import React, { Component } from "react";
 import { connect } from 'react-redux';
@@ -34,10 +34,12 @@ const mapDispatchToProps = (dispatch) => {
 class SignIn extends Component{
  constructor(props){
   super(props);
-  this.state = { Username: '', Password: '' };
+  this.state = { Username: 'Tester', Password: 'SuperPass' };
   this.__authenticate = this.__authenticate.bind(this);
  }
  __authenticate(){
+  this.props.setToken('artgh');
+  return;
   let formBody = jsonToURLForm(Object.assign({}, this.state, {'grant_type': 'password'}));
   fetch('http://eventchat.azurewebsites.net/token',{
    method: 'POST',
@@ -70,8 +72,7 @@ class SignIn extends Component{
        placeholder="Password"
        onChange={Password => this.setState({Password})}
       />
-      <NavButton title="Sign In" onPress={ () => this.__authenticate() } />
-      <NavButton title="Back" onPress={ () => this.props.navigation.navigate("Main") } />
+      <NavButton title="Log In" onPress={ () => this.__authenticate() } />
      </Card>
    </View>
   );

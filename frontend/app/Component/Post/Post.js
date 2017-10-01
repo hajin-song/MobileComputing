@@ -1,43 +1,71 @@
+/**
+ * Post.js
+ * Post View
+ * Created On: 01-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 01-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
+
 import React, {Component} from "react";
-import {View, TextInput,Button,StyleSheet,Dimensions, Text} from "react-native";
+import {View, TextInput } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { connect } from 'react-redux';
+
+import Style from './Style';
+
 import CameraScene from './Camera.js';
+import { ActionButton } from '../Common/Button';
+import EventActions from '../../Action/Event';
 
 const PicturePath = "";
 
+const mapStateToProps = (state) => {
+ return {
+  token: state.Session.token,
+  coordinate: state.Map.coordinate
+ }
+};
+
+const mapDispatchToProps = (dispatch) => {
+ return ({
+
+ });
+}
+
 class Post extends Component {
-	state= {};
+	constructor(props){
+		super(props);
+		this.state = { title: '', content: '' }
+		this.__post = this.__post.bind(this);
+	}
+	__post(token, coordinate){
+		console.log(this.state, token, coordinate);
+	}
 	render() {
-          const { navigate } = this.props.navigation;   
-
-	return (
-	  <View style={styles.container}>
-        <CameraScene />
-        <View style={styles.container}>
-  <TextInput
-  placeholder = " What's on? "
-        style={styles.title}
-        onChangeText={(text) => this.setState({text})}
-        value={this.state.text}
-      />
-      <TextInput
-  placeholder = " Tell the world more details ... "
-  multiline = {true}
-        style={styles.input}
-        onChangeText={(text) => this.setState({text})}
-        value={this.state.text}
-      />
-      <Button 
-      onPress = {() => navigate('Events')}
-  title="Pin it"
-  color="red"
-  accessibilityLabel=""
-/>
-        </View> 
-      </View>);
-
-	};
-
+		return (
+		  <View style={Style.container}>
+					<CameraScene />
+					<View style={Style.container}>
+			  <TextInput
+						placeholder = "What's on?"
+						style={Style.title}
+						onChangeText={ (title) => this.setState({title}) }
+						value={this.state.title}
+					/>
+	    <TextInput
+						placeholder = "Tell the world more details..."
+						multiline = {true}
+	     style={Style.input}
+	     onChangeText={ (content) => this.setState({content})}
+	     value={this.state.text}
+	    />
+					<ActionButton title="Pin it" onPress = {() => this.__post(this.props.token, this.props.coordinate)} />
+				</View>
+			</View>
+		);
+	}
 
 storePicture(){
       console.log( PicturePath );
@@ -80,47 +108,6 @@ storePicture(){
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  preview: {
-   flex: 1,
-   justifyContent: 'flex-end',
-   alignItems: 'center',
-   height: Dimensions.get('window').height,
-   width: Dimensions.get('window').width
- },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
-  },
-  input: {
-    marginTop:20,
-    marginBottom:20,
-height: 100,
- width: 300,
- borderColor: 'gray',
-  borderWidth: 1
-
-  },
-  title: {
-    marginTop:20,
-    marginBottom:0,
-height: 40,
- width: 300,
- borderColor: 'gray',
-  borderWidth: 1
-
-  }
-});
 
 
-export default Post;
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

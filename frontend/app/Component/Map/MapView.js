@@ -39,7 +39,6 @@ class Map extends Component {
  constructor(props){
   super(props);
   this.state = {
-   center: { latitude: 40.7205624, longitude: -73.976823},
    zoom: 11,
    userTrackingMode: Mapbox.userTrackingMode.none
   }
@@ -50,7 +49,7 @@ class Map extends Component {
   let latitude = geoResult.coords.latitude;
   this.props.setCoordinates(longitude, latitude);
   this.state.center = { longitude, latitude }
-  this._map.setCenterCoordinateZoomLevel(latitude, longitude, this.state.zoom);
+  this._map.setCenterCoordinateZoomLevel(latitude, longitude, this.state.zoom, false);
  }
  componentWillMount() {
   navigator.geolocation.getCurrentPosition( (pos) => {

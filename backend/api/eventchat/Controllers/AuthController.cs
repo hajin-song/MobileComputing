@@ -1,5 +1,6 @@
 ﻿using eventchat.DAL;
 using eventchat.Models;
+using eventchat.Models.Wrappers;
 using eventchat.Models.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -25,13 +26,15 @@ namespace eventchat.Controllers
 
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(User user)
+        public async Task<IHttpActionResult> Register(UserRegister user)
         {
-            IdentityUser identUser = new IdentityUser{ UserName = user.UserName };
 
+            
+            IdentityUser identUser = new IdentityUser{ UserName = user.UserName };
+            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password };
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            var newUser = await repo.Register(user);
+            var newUser = await repo.Register(dbUser);
             IHttpActionResult err = GetErrorResult(newUser);
             if(err != null) { return err; }
             return Ok();

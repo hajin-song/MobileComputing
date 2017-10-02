@@ -274,13 +274,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709221456284_InitialCreate.cs" />
-    <Compile Include="Migrations\201709221456284_InitialCreate.Designer.cs">
-      <DependentUpon>201709221456284_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201710021440261_InitialCreate.cs" />
+    <Compile Include="Migrations\201710021440261_InitialCreate.Designer.cs">
+      <DependentUpon>201710021440261_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709231455588_AddEntities.cs" />
-    <Compile Include="Migrations\201709231455588_AddEntities.Designer.cs">
-      <DependentUpon>201709231455588_AddEntities.cs</DependentUpon>
+    <Compile Include="Migrations\201710021441556_RemoveConfirmPassword.cs" />
+    <Compile Include="Migrations\201710021441556_RemoveConfirmPassword.Designer.cs">
+      <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -290,6 +290,7 @@
     <Compile Include="Models\Repository\UserAuth.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Value.cs" />
+    <Compile Include="Models\Wrappers\UserRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -388,11 +389,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709221456284_InitialCreate.resx">
-      <DependentUpon>201709221456284_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710021440261_InitialCreate.resx">
+      <DependentUpon>201710021440261_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709231455588_AddEntities.resx">
-      <DependentUpon>201709231455588_AddEntities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710021441556_RemoveConfirmPassword.resx">
+      <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

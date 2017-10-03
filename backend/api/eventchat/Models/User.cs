@@ -38,5 +38,21 @@ namespace eventchat.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Date of Birth")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [Column(TypeName = "BIT")]
+        [Display(Name = "Authority?")]
+        public bool Authority { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(max)")]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        public virtual ICollection<Comment> comments { get; set; }
     }
 }

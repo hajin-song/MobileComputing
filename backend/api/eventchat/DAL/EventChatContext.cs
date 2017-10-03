@@ -10,6 +10,7 @@ namespace eventchat.DAL
         {
 
         }
+        public DbSet<EventType> EventTypes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Value> Values { get; set; }
         public DbSet<Image> Images { get; set; }
@@ -19,6 +20,7 @@ namespace eventchat.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            
         }
     }
 }

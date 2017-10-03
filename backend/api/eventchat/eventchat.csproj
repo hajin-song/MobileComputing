@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201710021441556_RemoveConfirmPassword.Designer.cs">
       <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710031106081_UpdateEntityRelations.cs" />
+    <Compile Include="Migrations\201710031106081_UpdateEntityRelations.Designer.cs">
+      <DependentUpon>201710031106081_UpdateEntityRelations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Event.cs" />
@@ -394,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710021441556_RemoveConfirmPassword.resx">
       <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710031106081_UpdateEntityRelations.resx">
+      <DependentUpon>201710031106081_UpdateEntityRelations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

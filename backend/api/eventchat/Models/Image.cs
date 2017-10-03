@@ -17,6 +17,10 @@ namespace eventchat.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ImageID { get; set; }
+
+        [Required]
+        [Display(Name = "Image URL")]
         public string imageURL { get; set; }
+        
     }
 }

@@ -37,6 +37,7 @@ namespace eventchat.Controllers
             var newUser = await repo.Register(dbUser);
             IHttpActionResult err = GetErrorResult(newUser);
             if(err != null) { return err; }
+            
             return Ok();
         }
 

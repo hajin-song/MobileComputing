@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.SqlTypes;
 
 namespace eventchat.Controllers
 {
@@ -29,14 +30,11 @@ namespace eventchat.Controllers
         public async Task<IHttpActionResult> Register(UserRegister user)
         {
 
-            
-            IdentityUser identUser = new IdentityUser{ UserName = user.UserName };
-            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password };
+            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today};
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            var newUser = await repo.Register(dbUser);
-            IHttpActionResult err = GetErrorResult(newUser);
-            if(err != null) { return err; }
+            var newUser =  repo.Register(dbUser);
+            if (repo.Register(dbUser) == false) { return BadRequest("Failed To Create a new User"); }
             
             return Ok();
         }

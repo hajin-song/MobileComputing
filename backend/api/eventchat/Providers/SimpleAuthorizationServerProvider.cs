@@ -2,6 +2,7 @@
 using eventchat.Models;
 using eventchat.Models.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
@@ -29,25 +30,45 @@ namespace eventchat.Providers
             // Does username and password combination match?
             using (UserAuthRepository repo = new UserAuthRepository())
             {
-                IdentityUser identUser = await repo.Find(context.UserName, context.Password);
-                if(identUser == null)
+                user = repo.Find(context.UserName, context.Password);
+                if (user == null)
                 {
                     context.SetError("Invalid Credential", "The Username or Password is incorrect");
                     return;
                 }
-                using (EventChatContext ctx = new EventChatContext())
-                {
-                    user = ctx.Users.Where(x => x.UserName.Equals(context.UserName)).FirstOrDefault(); // validated already
-                }
             }
-
-            // Set Token
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
-            identity.AddClaim(new Claim("first_name", user.FirstName));
-            identity.AddClaim(new Claim("last_name", user.LastName));
-            context.Validated(identity);
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    {
+                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                    },
+                    {
+                        "firstName", user.FirstName
+                    },
+                    {
+                        "lastName", user.LastName
+                    }
+                });
+            var ticket = new AuthenticationTicket(identity, props);
+
+            // Set Token
+
+            identity.AddClaim(new Claim(ClaimTypes.Role, user.FirstName));
+            identity.AddClaim(new Claim(ClaimTypes.Role, user.LastName));
+            context.Validated(ticket);
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+
+            return Task.FromResult<object>(null);
         }
     }
 }

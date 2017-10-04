@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,38 +12,49 @@ namespace eventchat.Models.Repository
 {
     public class UserAuthRepository : IDisposable
     {
-        private AuthContext db;
-
-        private UserManager<IdentityUser> userManager;
+        private EventChatContext db;
+       
 
         public UserAuthRepository()
         {
-            db = new AuthContext();
-            userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(db));
+            db = new EventChatContext();
         }
 
-        public async Task<IdentityResult> Register(User user)
+        public bool Register(User user)
         {
-            IdentityUser identUser = new IdentityUser
+            if (db.Users.Where(x => x.UserName.Equals(user.UserName)).FirstOrDefault() == null)
             {
-                UserName = user.UserName
-            };
-
-            var result = await userManager.CreateAsync(identUser, user.Password);
-
-            return result;
+                return false;
+            }
+            db.Users.Add(user);
+            try
+            {
+                db.SaveChanges();
+            }catch(DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                return false;
+            }
+            return true;
         }
 
-        public async Task<IdentityUser> Find(string userName, string password)
+        public User Find(string userName, string password)
         {
-            return await userManager.FindAsync(userName, password);
+            return db.Users.Where(x => x.UserName.Equals(userName) && x.Password.Equals(password)).FirstOrDefault();
         }
 
         public void Dispose()
         {
             db.Dispose();
-            userManager.Dispose();
-
         }
     }
 }

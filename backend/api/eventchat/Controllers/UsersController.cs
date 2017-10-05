@@ -20,39 +20,37 @@ namespace eventchat.Controllers
     public class UsersController : ApiController
     {
         private EventChatContext db = new EventChatContext();
-        
+
         [Route("update")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult Update(UserRegister user)
+        public IHttpActionResult Update(UserPost user)
         {
             db.Configuration.ProxyCreationEnabled = false;
             User dbUser = db.Users.Where(x => x.UserName.Equals(user.UserName)).FirstOrDefault();
             db.Configuration.ProxyCreationEnabled = true;
-            if(dbUser == null)
-            {
-                return NotFound();
-            }
+            if (dbUser == null) { return NotFound(); }
             FieldInfo[] userRegiFields = user.GetType().GetFields(BindingFlags.Instance |
-                       BindingFlags.Static |
-                       BindingFlags.NonPublic |
-                       BindingFlags.Public);
+                                                                   BindingFlags.Static |
+                                                                   BindingFlags.NonPublic |
+                                                                   BindingFlags.Public);
             FieldInfo[] userFields = dbUser.GetType().GetFields(BindingFlags.Instance |
-                       BindingFlags.Static |
-                       BindingFlags.NonPublic |
-                       BindingFlags.Public);
-            foreach(FieldInfo field in userRegiFields)
+                                                                   BindingFlags.Static |
+                                                                   BindingFlags.NonPublic |
+                                                                   BindingFlags.Public);
+            foreach (FieldInfo field in userRegiFields)
             {
                 var newVal = field.GetValue(user);
-                if(newVal != null)
+                if (newVal == null) { continue; }
+
+                foreach (FieldInfo dbField in userFields)
                 {
-                    foreach(FieldInfo dbField in userFields)
+                    if (dbField.Name.Equals(field.Name))
                     {
-                        if (dbField.Name.Equals(field.Name))
-                        {
-                            dbField.SetValue(dbUser, newVal);
-                        }
+                        dbField.SetValue(dbUser, newVal);
+                        break;
                     }
                 }
+
             }
             db.Entry(dbUser).State = EntityState.Modified;
 
@@ -65,6 +63,13 @@ namespace eventchat.Controllers
                 return BadRequest();
             }
 
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("subscribe")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Subscribe(UserSubscribe userSubscription)
+        {
             return StatusCode(HttpStatusCode.NoContent);
         }
 

@@ -269,7 +269,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DAL\AuthContext.cs" />
     <Compile Include="DAL\EventChatContext.cs" />
     <Compile Include="DAL\EventChatInitialiser.cs" />
     <Compile Include="Global.asax.cs">
@@ -287,15 +286,22 @@
     <Compile Include="Migrations\201710050938276_RemoveCustomUserName.Designer.cs">
       <DependentUpon>201710050938276_RemoveCustomUserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710051239078_AddSubscriptionTable.cs" />
+    <Compile Include="Migrations\201710051239078_AddSubscriptionTable.Designer.cs">
+      <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\Repository\UserAuth.cs" />
+    <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Value.cs" />
-    <Compile Include="Models\Wrappers\UserRegister.cs" />
+    <Compile Include="Models\Wrappers\CommentPost.cs" />
+    <Compile Include="Models\Wrappers\UserPost.cs" />
+    <Compile Include="Models\Wrappers\UserSubscribe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -403,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710050938276_RemoveCustomUserName.resx">
       <DependentUpon>201710050938276_RemoveCustomUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710051239078_AddSubscriptionTable.resx">
+      <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

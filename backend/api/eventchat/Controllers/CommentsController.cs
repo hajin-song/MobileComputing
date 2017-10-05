@@ -10,20 +10,18 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using eventchat.DAL;
 using eventchat.Models;
+using eventchat.Models.Wrappers;
 
 namespace eventchat.Controllers
 {
+    [RoutePrefix("api/comments")]
+    [Authorize]
     public class CommentsController : ApiController
     {
         private EventChatContext db = new EventChatContext();
 
-        // GET: api/Comments
-        public IQueryable<Comment> GetComments()
-        {
-            return db.Comments;
-        }
-
         // GET: api/Comments/5
+        [Route("get")]
         [ResponseType(typeof(Comment))]
         public IHttpActionResult GetComment(int id)
         {
@@ -36,69 +34,19 @@ namespace eventchat.Controllers
             return Ok(comment);
         }
 
-        // PUT: api/Comments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutComment(int id, Comment comment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != comment.CommentID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Comments
+        [Route("post")]
         [ResponseType(typeof(Comment))]
-        public IHttpActionResult PostComment(Comment comment)
+        public IHttpActionResult PostComment(CommentPost comment)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Comments.Add(comment);
-            db.SaveChanges();
-
             return CreatedAtRoute("DefaultApi", new { id = comment.CommentID }, comment);
         }
 
         // DELETE: api/Comments/5
+        [Route("destroy")]
         [ResponseType(typeof(Comment))]
-        public IHttpActionResult DeleteComment(int id)
+        public IHttpActionResult DeleteComment(CommentPost comment)
         {
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-
             return Ok(comment);
         }
 

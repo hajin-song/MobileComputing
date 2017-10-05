@@ -27,7 +27,7 @@ namespace eventchat.Controllers
 
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserRegister user)
+        public async Task<IHttpActionResult> Register(UserPost user)
         {
 
             User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today};

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace eventchat.Models.Wrappers
 {
-    public class UserRegister
+    public class UserPost
     {
         public string UserName { get; set; }
         public string Password { get; set; }

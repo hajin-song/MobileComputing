@@ -37,27 +37,12 @@ namespace eventchat.Providers
                     return;
                 }
             }
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            ClaimsIdentity identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
-            var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    {
-                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
-                    },
-                    {
-                        "firstName", user.FirstName
-                    },
-                    {
-                        "lastName", user.LastName
-                    }
-                });
-            var ticket = new AuthenticationTicket(identity, props);
 
-            // Set Token
-
-            identity.AddClaim(new Claim(ClaimTypes.Role, user.FirstName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, user.LastName));
+            AuthenticationProperties props = getUserProperties(user);
+            AuthenticationTicket ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
         }
 
@@ -69,6 +54,18 @@ namespace eventchat.Providers
             }
 
             return Task.FromResult<object>(null);
+        }
+
+        private AuthenticationProperties getUserProperties(User user)
+        {
+            AuthenticationProperties props = new AuthenticationProperties(new Dictionary<string, string>());
+            props.Dictionary.Add("firstName", user.FirstName);
+            props.Dictionary.Add("lastName", user.LastName);
+            props.Dictionary.Add("address", user.Address);
+            props.Dictionary.Add("userID", user.Id);
+            props.Dictionary.Add("dataOfBirth", user.DateOfBirth.ToShortDateString());
+            props.Dictionary.Add("userName", user.UserName);
+            return props;
         }
     }
 }

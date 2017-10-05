@@ -33,9 +33,12 @@ namespace eventchat.Controllers
             User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today};
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            var newUser =  repo.Register(dbUser);
-            if (repo.Register(dbUser) == false) { return BadRequest("Failed To Create a new User"); }
-            
+            IdentityResult result =  await repo.Register(dbUser);
+            IHttpActionResult errResult = GetErrorResult(result);
+            if(errResult != null)
+            {
+                return errResult;
+            }
             return Ok();
         }
 

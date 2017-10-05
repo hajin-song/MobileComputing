@@ -1,14 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace eventchat.Models
 {
-    public class User
+    public class User : IdentityUser
     {
+
         public User()
         {
 
@@ -17,10 +22,6 @@ namespace eventchat.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
-
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -54,5 +55,13 @@ namespace eventchat.Models
         public string Address { get; set; }
 
         public virtual ICollection<Comment> comments { get; set; }
+       
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
+            UserManager<User> manager, string authenticationType
+            )
+        {
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            return userIdentity;
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace eventchat.Providers
             // Does username and password combination match?
             using (UserAuthRepository repo = new UserAuthRepository())
             {
-                user = repo.Find(context.UserName, context.Password);
+                user = await repo.Find(context.UserName, context.Password);
                 if (user == null)
                 {
                     context.SetError("Invalid Credential", "The Username or Password is incorrect");

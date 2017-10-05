@@ -267,6 +267,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\AuthContext.cs" />
     <Compile Include="DAL\EventChatContext.cs" />
@@ -274,17 +275,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710021440261_InitialCreate.cs" />
-    <Compile Include="Migrations\201710021440261_InitialCreate.Designer.cs">
-      <DependentUpon>201710021440261_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201710050912431_Initial.cs" />
+    <Compile Include="Migrations\201710050912431_Initial.Designer.cs">
+      <DependentUpon>201710050912431_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710021441556_RemoveConfirmPassword.cs" />
-    <Compile Include="Migrations\201710021441556_RemoveConfirmPassword.Designer.cs">
-      <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
+    <Compile Include="Migrations\201710050913491_RevertUserToNormalType.cs" />
+    <Compile Include="Migrations\201710050913491_RevertUserToNormalType.Designer.cs">
+      <DependentUpon>201710050913491_RevertUserToNormalType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710031106081_UpdateEntityRelations.cs" />
-    <Compile Include="Migrations\201710031106081_UpdateEntityRelations.Designer.cs">
-      <DependentUpon>201710031106081_UpdateEntityRelations.cs</DependentUpon>
+    <Compile Include="Migrations\201710050938276_RemoveCustomUserName.cs" />
+    <Compile Include="Migrations\201710050938276_RemoveCustomUserName.Designer.cs">
+      <DependentUpon>201710050938276_RemoveCustomUserName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Stores\UserStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -393,14 +395,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710021440261_InitialCreate.resx">
-      <DependentUpon>201710021440261_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710050912431_Initial.resx">
+      <DependentUpon>201710050912431_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710021441556_RemoveConfirmPassword.resx">
-      <DependentUpon>201710021441556_RemoveConfirmPassword.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710050913491_RevertUserToNormalType.resx">
+      <DependentUpon>201710050913491_RevertUserToNormalType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710031106081_UpdateEntityRelations.resx">
-      <DependentUpon>201710031106081_UpdateEntityRelations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710050938276_RemoveCustomUserName.resx">
+      <DependentUpon>201710050938276_RemoveCustomUserName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

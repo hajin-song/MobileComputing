@@ -11,7 +11,7 @@
   },
   {"ID" : 2,
     "Commenter" : "Najla",
-   "CommenterID" : 1,
+   "CommenterID" : 3,
    "EventID" : 2,
    "IsAnonymous" : "false",
    "Comment"     : "Another dummy comment.",

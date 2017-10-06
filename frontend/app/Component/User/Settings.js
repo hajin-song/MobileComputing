@@ -1,197 +1,140 @@
-'use strict';
+/**
+* Settings
+* 1- Update personal information
+* 2- Change password
+*/
+
 import React, {Component } from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-  AsyncStorage,
-  ActivityIndicatorIOS,
-  Text,
-  View
-} from 'react-native';
+import {Text,ScrollView,Button,View,TextInput,StyleSheet,TouchableHighlight,ActivityIndicatorIOS} from 'react-native';
+import styles  from './../../Style/Standard.js'
+import { Card } from "react-native-elements";
+import { FormField, FormFieldPassword } from '../Common/FormField';
+import DatePicker from 'react-native-datepicker'
 
-const ACCESS_TOKEN = 'access_token';
+/* data imports - @TODO remove later */
+import user from './../Data/User.json';
 
-class Update extends Component {
-  constructor(props){
+export default class Settings extends Component {
+
+  constructor(props) {
     super(props);
-
     this.state = {
-      email: "",
-      name: "",
-      password: "",
-      password_confirmation: "",
-      errors: [],
-      showProgress: false,
-      accessToken: this.props.accessToken,
-    }
-  }
-  componentWillMount() {
-    this.fetchUserData();
-  }
-  redirect(routeName, flash) {
-    this.props.navigator.push({
-      name: routeName,
-      passProps: {
-        flash: flash
-      }
-    });
-  }
-  async fetchUserData() {
-    let access_token = this.state.accessToken;
-    try {
-      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/Users/"+access_token+"/edit");
-      let res = await response.text();
-      if (response.status >= 200 && response.status < 300) {
-          //Handle success
-          let userData = JSON.parse(res);
-          for(let data in userData) {
-            console.log("data is: " + data);
-            this.setState({[data]:userData[data]});
-          }
-      } else {
-          //Handle error
-          let error = res;
-          throw err;
-      }
-    } catch(error) {
-        //If something went wrong we will redirect to the login page
-        this.redirect('login');
-    }
-  }
-  async onUpdatePressed() {
-    this.setState({showProgress: true});
-    let access_token = this.state.accessToken;
-    try {
-      let response = await fetch("https://afternoon-beyond-22141.herokuapp.com/api/Users/"+access_token, {
-                              method: 'PATCH',
-                              headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                user:{
-                                  name: this.state.name,
-                                  email: this.state.email,
-                                  password: this.state.password,
-                                  password_confirmation: this.state.password_confirmation,
-                                }
-                              })
-                           });
-      let res = await response.text();
-      if (response.status >= 200 && response.status < 300) {
-          //On success we redirect to home with flash success message
-          this.redirect('home', res)
-      } else {
-          //Handle errors
-          let error = res;
-          throw error
-      }
-    } catch(errors) {
-        //errors are in JSON form so we must parse them first.
-        let formErrors = JSON.parse(errors);
-        //We will store all the errors in the array.
-        let errorsArray = [];
-        for(var key in formErrors) {
-          //If array is bigger than one we need to split it.
-          if(formErrors[key].length > 1) {
-            formErrors[key].map(error => errorsArray.push(key + " " + error));
-          } else {
-            errorsArray.push(key + " " + formErrors[key]);
-          }
-        }
-        this.setState({errors: errorsArray})
-        this.setState({showProgress: false});
-    }
-  }
+      FirstName: user.FirstName,
+      LastName: user.LastName,
+      Username: user.UserName,
+      Details: user.Details,
+      Image: user.Image,
+      Email: user.Email,
+      DoB: user.DoB,
+      Password: ""
+    };
+  };
+
+
   render() {
-
-    return (
+    return(
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Account Details
-        </Text>
-        <TextInput
-          onChangeText={ (text)=> this.setState({email: text}) }
-          style={styles.input} value={this.state.email}>
-        </TextInput>
-        <TextInput
-          onChangeText={ (text)=> this.setState({name: text}) }
-          style={styles.input} value={this.state.name}>
-        </TextInput>
-        <TextInput
-          onChangeText={ (text)=> this.setState({password: text}) }
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry={true}>
-        </TextInput>
-        <TextInput
-          onChangeText={ (text)=> this.setState({password_confirmation: text}) }
-          style={styles.input}
-          placeholder="Confirm Password"
-          secureTextEntry={true}>
-        </TextInput>
-        <TouchableHighlight onPress={this.onUpdatePressed.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Update
-          </Text>
-        </TouchableHighlight>
+      <ScrollView>
+      <View style={{ paddingVertical: 20 }}>
+      <Card>
+      <FormField
+      title="First Name"
+      defaultValue={this.state.FirstName}
+      placeholder="First Name"
+      onChange={FirstName => this.setState({FirstName})}
+      />
+      <FormField
+      title="Last Name"
+      defaultValue={this.state.LastName}
+      placeholder="Last Name"
+      onChange={LastName => this.setState({LastName})}
+      />
+      <FormField
+      title="Details"
+      defaultValue={this.state.Details}
+      placeholder="Details"
+      onChange={Details => this.setState({Details})}
+      />
 
-        <Errors errors={this.state.errors}/>
+      <FormField
 
-        <ActivityIndicatorIOS animating={this.state.showProgress} size="large" style={styles.loader} />
-      </View>
-    );
-  }
-}
+      title="Email"
+      defaultValue={this.state.Email}
+      placeholder="Email Address"
+      onChange={Email => this.setState({Email})}
+      />
+      <FormField
 
-const Errors = (props) => {
-  return (
-    <View>
-      {props.errors.map((error, i) => <Text key={i} style={styles.error}> {error} </Text>)}
+      title="Location"
+      defaultValue={this.state.Location}
+      placeholder="Location"
+      onChange={Location => this.setState({Location})}
+      />
+      <FormField
+
+      title="Profile Picture"
+      defaultValue={this.state.Image}
+      placeholder="Profile Picture"
+      onChange={Image => this.setState({Image})}
+      />
+      <DatePicker
+      style={{width: 200}}
+      date={this.state.DoB}
+      mode="date"
+      placeholder="Date of birth."
+      format="YYYY-MM-DD"
+      minDate="1900-01-01"
+      maxDate="2002-01-01"
+      confirmBtnText="Confirm"
+      cancelBtnText="Cancel"
+      customStyles={{
+        dateIcon: {   position: 'absolute',   left: 0,     top: 4,
+        marginLeft: 0
+      },
+      dateInput: {
+        marginLeft: 36
+      }
+    }}
+    onDateChange={(date) => {this.setState({DoB: date})}}
+    />
+    <View style={[styles.row]}>
+
+    <View style={[styles.box]}>
+    <Button title="Cancel" onPress={() => this.props.navigation.navigate("Profile")}/>
     </View>
-  );
-}
+    <View style={[styles.box]}>
+    <Button title="Update" onPress={() => this.props.navigation.navigate("Profile")} />
+    </View>
+    </View>
+    </Card>
+    </View>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    padding: 10,
-    paddingTop: 80
-  },
-  input: {
-    height: 50,
-    marginTop: 10,
-    padding: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#48bbec'
-  },
-  button: {
-    height: 50,
-    backgroundColor: '#48BBEC',
-    alignSelf: 'stretch',
-    marginTop: 10,
-    justifyContent: 'center'
-  },
-  buttonText: {
-    fontSize: 22,
-    color: '#FFF',
-    alignSelf: 'center'
-  },
-  heading: {
-    fontSize: 30,
-  },
-  error: {
-    color: 'red',
-    paddingTop: 10
-  },
-  loader: {
-    marginTop: 20
-  }
-});
+    <View style={{ paddingVertical: 20 }}>
+    <Card>
+    <FormFieldPassword
+    title="New Password"
+    defaultValue={this.state.Password}
+    placeholder="New Password"
+    onChange={Password => this.setState({Password})}
+    />
+    <FormFieldPassword
+    title="Confirm Password"
+    defaultValue={this.state.ConfirmPassword}
+    placeholder="Confirm Password"
+    onChange={ConfirmPassword => this.setState({ConfirmPassword})}
+    />
+    <View style={[styles.row]}>
 
-export default Update;
+    <View style={[styles.box]}>
+    <Button title="Cancel" onPress={() => this.props.navigation.navigate("Profile")}/>
+    </View>
+    <View style={[styles.box]}>
+    <Button title="Update" onPress={() => this.props.navigation.navigate("Profile")} />
+    </View>
+    </View>
+    </Card>
+    </View>
+</ScrollView>
+    </View>
+
+  );}}

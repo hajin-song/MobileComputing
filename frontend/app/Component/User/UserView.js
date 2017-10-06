@@ -21,7 +21,7 @@ import comments from './../Data/comments.json';
 
 
 
-export default class Profile extends Component {
+export default class UserView extends Component {
 
 
 
@@ -59,20 +59,6 @@ export default class Profile extends Component {
       <Text>Subscriptions {"\n"} </Text>
       </TouchableHighlight>
 
-      </View>
-
-      <View style={[styles.box]}>
-
-      <View style={[styles.box]}>
-      <TouchableHighlight onPress={() => this.props.navigation.navigate("Settings")}>
-      <Ionicons name ='ios-settings-outline' size={30} color={'black'} />
-      </TouchableHighlight>
-      </View>
-      <View style={[styles.box]}>
-      <TouchableHighlight onPress={() => this.props.navigation.navigate("Login")}>
-      <MaterialCommunityIcons name ='logout' size={30}  color={'black'} />
-      </TouchableHighlight>
-      </View>
       </View>
 
 

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet,Dimensions} from 'react-native'
 
 
 
@@ -95,6 +95,34 @@ export default StyleSheet.create({
   },
   unsubscribeButton : {
 
-  }
+  },
+  cameraContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#000',
+    },
+    preview: {
+      alignItems: 'center',
+      height: 200,
+      width: Dimensions.get('window').width
+    },
+    capture: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+      borderWidth: 5,
+      borderColor: '#FFF',
+      marginBottom: 15,
+    },
+    cancel: {
+      position: 'absolute',
+      right: 20,
+      top: 20,
+      backgroundColor: 'transparent',
+      color: '#FFF',
+      fontWeight: '600',
+      fontSize: 17,
+    }
 
 });

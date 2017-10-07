@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { SectionList,TouchableHighlight, Button, Text, View } from 'react-native';
 import styles  from './../../Style/Standard.js'
 
-//data imports, delete later
-import friendssubscriptions from './../Data/friendsList.json'
-import authoritysubscriptions from './../Data/authorityList.json'
-
 export default class Subscriptions extends Component {
   render() {
     return (

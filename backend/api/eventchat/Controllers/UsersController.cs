@@ -21,6 +21,12 @@ namespace eventchat.Controllers
     {
         private EventChatContext db = new EventChatContext();
 
+        [Route("index")]
+        public IQueryable<User> Index()
+        {
+            return db.Users;
+        }
+
         [Route("update")]
         [ResponseType(typeof(void))]
         public IHttpActionResult Update(UserPost user)

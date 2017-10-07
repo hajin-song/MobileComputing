@@ -1,6 +1,10 @@
 /**
 * User.js
 * Navigation Routing for application
+* Created On: 29-Sept-2017
+* Created By: Ha Jin Song
+* Last Modified On: 07-Oct-2017
+* Last Modified By: Ha Jin Song
 */
 
 import React from "react";
@@ -98,11 +102,11 @@ let profileNav = {
     },
     UserEdit: {
       screen: UserEdit,
-      navigationOptions: (props) => ({ title: "Edit Profile" })
+      navigationOptions: (props) => ({ title: "Profile" })
     },
     Subscriptions: {
       screen: Subscriptions,
-      navigationOptions: (props) => ({ title: "Subscriptions" })
+      navigationOptions: (props) => ({ title: "Profile" })
     },
     UserView: {
       screen: UserView,

@@ -21,9 +21,9 @@ class Register extends Component{
    Username: 'tester123',
    Password: 'qwerty',
    ConfirmPassword: 'qwerty',
-   Address: 'empty',
-   FirstName: 'headed',
-   LastName: '120 Scholar Street',
+   FirstName: 'empty',
+   LastName: 'headed',
+   Address: '120 Scholar Street',
    actionTriggered: false,
   }
   this.__register = this.__register.bind(this);
@@ -41,7 +41,6 @@ class Register extends Component{
    body: formBody
   }).then( (res) => {
    if(typeof(res.error) !== 'undefined'){
-    console.log(res);
     this.props.screenProps.onMessage('error', 'Registration Failed!');
     this.setState({actionTriggered: false });
     return;
@@ -51,7 +50,6 @@ class Register extends Component{
    this.setState({actionTriggered: false });
   }).catch( (err) => {
    this.props.screenProps.onMessage('error', 'Registration Failed!');
-   console.log(err);
    this.setState({actionTriggered: false });
   });
  }

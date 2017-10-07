@@ -1,6 +1,10 @@
 /**
  * Guest.js
  * Navigation Routing for application for Guest Users
+ * Created On: 29-Sept-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 07-Oct-2017
+ * Last Modified By: Ha Jin Song
  */
 
 import React from "react";

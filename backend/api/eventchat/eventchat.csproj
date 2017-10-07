@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201710051239078_AddSubscriptionTable.Designer.cs">
       <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710071304556_AddSourceToEvent.cs" />
+    <Compile Include="Migrations\201710071304556_AddSourceToEvent.Designer.cs">
+      <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Event.cs" />
@@ -412,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710051239078_AddSubscriptionTable.resx">
       <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710071304556_AddSourceToEvent.resx">
+      <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

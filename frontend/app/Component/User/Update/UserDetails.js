@@ -51,6 +51,7 @@ export default class UserDetails extends Component {
      console.log(res);
      return;
     }
+    this.props.screenProps.onMessage('success', 'Yolololol');
     console.log('success');
    }).catch( (err) => {
     console.log(err);

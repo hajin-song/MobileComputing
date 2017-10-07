@@ -1,4 +1,6 @@
-"""Fake tweet generator.
+"""
+Fake tweet generator.
+
 This program generates fake tweets to test our event detector that discovers events from Twitter.
 When the program runs, it will generate five tweets using five Twitter accounts.
 """
@@ -47,7 +49,7 @@ def main():
   }
 
 
-  tweet1 = 'If squid is sotong and octopus is sotong... Which one is the real sotong??????'
+  tweet1 = 'If squid is sotong and octopus is sotong... Which one is the real sotong?????'
   tweet2 = 'I saw smog in Monash. Bushfire?'
   tweet3 = 'I saw smog in Monash. Bushfire?'
   tweet4 = 'I saw smog in Monash. Bushfire?'

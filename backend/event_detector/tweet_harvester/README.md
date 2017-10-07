@@ -1,4 +1,4 @@
-# Backend for Detecting Incident By Mining Tweets
+# Implemenation of Twitter APIs to download tweets
 
 ## Prerequisites
 

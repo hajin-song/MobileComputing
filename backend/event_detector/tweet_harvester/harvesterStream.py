@@ -15,13 +15,8 @@ class TwitterStreamListener(StreamListener):
     def on_data(self, data):
         """Store tweet, if not already seen."""
         jtweet = json.loads(data)
-
-        for keyword in ['hail', 'bushfire', 'carcrash', 'flood', 'fire', 'accident']:
-            if keyword in jtweet['text']:
-                jtweet['id'] = str(jtweet['id'])
-                print(jtweet)
-                document = self.client.CreateDocument(self.coll['_self'], jtweet)
-                break
+        jtweet['id'] = str(jtweet['id'])
+        document = self.client.CreateDocument(self.coll['_self'], jtweet)
 
     def on_error(self, status_code):
         """Log error message."""

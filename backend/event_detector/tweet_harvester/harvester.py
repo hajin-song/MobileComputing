@@ -136,7 +136,7 @@ if __name__ == "__main__":
         box = get_box(config)
         stream_listener = TwitterStreamListener(client, coll)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-        stream.filter(locations=box, stall_warnings=True)
+        stream.filter(locations=box, stall_warnings=True, languages=["en"])
 
     elif mode == 'search':
         geo = get_geocode(config)

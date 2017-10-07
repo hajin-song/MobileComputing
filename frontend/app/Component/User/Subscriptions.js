@@ -55,7 +55,7 @@ class Subscriptions extends Component {
      ]}
      keyExtractor={(item) => 'key-' + item.UserName}
      renderSectionHeader={({section}) => <Header title={section.title}/>}
-     renderItem={ ({item}) => <List item={item} /> }
+     renderItem={ ({item}) => <List item={item} token={this.props.token} userName={this.props.userName} onMessage={this.props.screenProps.onMessage}/> }
     />
    </View>
   );

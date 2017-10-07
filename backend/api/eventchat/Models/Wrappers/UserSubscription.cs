@@ -5,11 +5,10 @@ using System.Web;
 
 namespace eventchat.Models.Wrappers
 {
-    public class UserIndex
+    public class UserSubscription
     {
         public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public bool Subscribed { get; set; }
+        public string targetUserName { get; set; }
+        public bool isSubscribing { get; set; }
     }
 }

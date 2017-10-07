@@ -25,15 +25,16 @@ export default class Password extends Component {
    super(props);
    this.state = {
     Password: "",
-    ConfirmPassword: ""
+    ConfirmPassword: "",
+    actionTriggered: false
    };
    this.__updatePassword = this.__updatePassword.bind(this);
   };
 
 
   __updatePassword(){
+   this.setState({actionTriggered: true });
    let formBody = jsonToURLForm(Object.assign({}, this.state, {UserName: this.props.userName }));
-   console.log(formBody, this.props.token);
    fetch('http://eventchat.azurewebsites.net/api/Users/UpdatePassword',{
     method: 'POST',
     headers: {
@@ -44,11 +45,15 @@ export default class Password extends Component {
     body: formBody
    }).then( (res) => {
     if(typeof(res.error) !== 'undefined'){
-     console.log(res);
+     this.props.screenProps.onMessage('error', 'Failed Change Password!!');
+     this.setState({actionTriggered: false });
      return;
     }
-    console.log('success');
+    this.props.screenProps.onMessage('success', 'Successfully Changed Password!');
+    this.setState({actionTriggered: false });
    }).catch( (err) => {
+    this.props.screenProps.onMessage('error', 'Failed Chang Password!');
+    this.setState({actionTriggered: false });
     console.log(err);
    });
   }
@@ -70,7 +75,7 @@ export default class Password extends Component {
        onChange={ConfirmPassword => this.setState({ConfirmPassword})}
       />
      <View style={[styles.row]}>
-      <ActionButton title="Update" onPress={() => this.__updatePassword()} />
+      <ActionButton title="Update" onPress={() => this.__updatePassword()} disabled={this.state.actionTriggered} />
      </View>
     </Card>
    </View>

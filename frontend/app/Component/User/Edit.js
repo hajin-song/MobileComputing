@@ -39,17 +39,22 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-const Setting = ({token, userName, userID, lastName, firstName, dateOfBirth, address, updateUser}) => {
+const UserEdit = ({token, userName, userID, lastName, firstName, dateOfBirth, address, updateUser, navigation, screenProps}) => {
  return(
   <View style={styles.container}>
    <ScrollView>
     <DetailUpdate
-     token={token} userName={userName} userID={userID} lastName={lastName} firstName={firstName} dateOfBirth={dateOfBirth} address={address} onPress={updateUser}
+     token={token} userName={userName} userID={userID}
+     lastName={lastName} firstName={firstName} dateOfBirth={dateOfBirth}
+     address={address} onPress={updateUser}
+     onMessage={screenProps.onMessage}
     />
-    <PasswordUpdate userName={userName} token={token}/>
+    <PasswordUpdate
+     userName={userName} token={token}
+     onMessage={screenProps.onMessage}/>
    </ScrollView>
   </View>
  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Setting);
+export default connect(mapStateToProps, mapDispatchToProps)(UserEdit);

@@ -38,10 +38,11 @@ const mapDispatchToProps = (dispatch) => {
 class SignIn extends Component{
  constructor(props){
   super(props);
-  this.state = { Username: 'tester', Password: 'qwerty', actionTriggered: false, };
+  this.state = { Username: 'tester123', Password: 'qwerty', actionTriggered: false, };
   this.__authenticate = this.__authenticate.bind(this);
  }
  __authenticate(){
+  this.setState({actionTriggered:true});
   let formBody = jsonToURLForm(Object.assign({}, this.state, {'grant_type': 'password'}));
   fetch('http://eventchat.azurewebsites.net/token',{
    method: 'POST',
@@ -69,7 +70,6 @@ class SignIn extends Component{
    });
    this.props.setToken(res.token_type + ' ' + res.access_token);
    this.props.screenProps.onMessage('success', 'Log In success!');
-   this.setState({actionTriggered: false });
   }).catch( (err) => {
    console.log(err);
    this.props.screenProps.onMessage('error', 'Log In failed!');

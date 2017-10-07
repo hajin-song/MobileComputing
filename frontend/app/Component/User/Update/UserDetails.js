@@ -15,9 +15,6 @@ import { FormField } from '../../Common/FormField';
 import { ActionButton } from '../../Common/Button';
 import DatePicker from 'react-native-datepicker'
 
-/* data imports - @TODO remove later */
-import user from './../../Data/User.json';
-
 import UserActions from '../../../Action/User';
 
 import { jsonToURLForm } from '../../../Tool/DataFormat';
@@ -33,10 +30,12 @@ export default class UserDetails extends Component {
     Details: '',
     Image: '',
     dateOfBirth: this.props.dateOfBirth,
+    actionTriggered: false
    };
    this.__updateUser = this.__updateUser.bind(this);
   };
   __updateUser(){
+   this.setState({actionTriggered: true });
    let formBody = jsonToURLForm(this.state);
    fetch('http://eventchat.azurewebsites.net/api/Users/Update',{
     method: 'POST',
@@ -49,12 +48,16 @@ export default class UserDetails extends Component {
    }).then( (res) => {
     if(typeof(res.error) !== 'undefined'){
      console.log(res);
+     this.props.screenProps.onMessage('error', 'Failed to Change Details!');
+     this.setState({actionTriggered: false });
      return;
     }
-    this.props.screenProps.onMessage('success', 'Yolololol');
-    console.log('success');
+    this.props.screenProps.onMessage('success', 'Successfully Changed Details!');
+    this.setState({actionTriggered: false });
    }).catch( (err) => {
     console.log(err);
+    this.props.screenProps.onMessage('error', 'Failed to Change Details!');
+    this.setState({actionTriggered: false });
    });
   }
   render() {
@@ -108,7 +111,7 @@ export default class UserDetails extends Component {
        onDateChange={(dateOfBirth) => {this.setState({DoB: dateOfBirth})}}
       />
       <View style={[styles.row]}>
-       <ActionButton title="Update" onPress={() => this.__updateUser()} />
+       <ActionButton title="Update" onPress={() => this.__updateUser()} disabled={this.state.actionTriggered} />
       </View>
      </Card>
     </View>

@@ -11,8 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 
-import Settings from '../User/Settings';
-import Profile from '../User/Profile.js';
+import UserEdit from '../User/Edit';
+import UserShow from '../User/Show';
 import Subscriptions from '../User/Subscriptions.js';
 import UserView from '../User/UserView.js';
 
@@ -92,12 +92,12 @@ let exploreNav = {
 
 let profileNav = {
   screen: StackNavigator({
-    Profile: {
-      screen: Profile,
-      navigationOptions:({navigation}) => ({ title: "@username" })
+    UserShow: {
+      screen: UserShow,
+      navigationOptions:({navigation}) => ({ title: "Profile" })
     },
-    Settings: {
-      screen: Settings,
+    UserEdit: {
+      screen: UserEdit,
       navigationOptions: (props) => ({ title: "Edit Profile" })
     },
     Subscriptions: {

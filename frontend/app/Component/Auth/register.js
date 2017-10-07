@@ -18,7 +18,7 @@ class Register extends Component{
  constructor(props){
   super(props);
   this.state = {
-   Username: 'tester',
+   Username: 'tester123',
    Password: 'qwerty',
    ConfirmPassword: 'qwerty',
    Address: 'empty',

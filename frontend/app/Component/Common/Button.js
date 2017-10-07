@@ -17,11 +17,12 @@ const NAV_BUTTON_STYLE = { marginTop: 20 };
 const ACTION_BUTTON_COLOR = 'red'
 const ACTION_BUTTON_STYLE = { marginTop: 20 };
 
-const ActionButton = ({ title, onPress }) => (
+const ActionButton = ({ title, onPress, disabled }) => (
  <Button
   buttonStyle={ACTION_BUTTON_STYLE}
   backgroundColor={ACTION_BUTTON_COLOR}
   title={title}
+  disabled={disabled}
   onPress={ () => onPress()}
  />
 )

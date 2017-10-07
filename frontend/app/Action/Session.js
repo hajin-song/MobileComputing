@@ -12,5 +12,5 @@ const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
 
 export default {
  INIT_SESSION,
- SET_AUTH_TOKEN
+ SET_AUTH_TOKEN,
 };

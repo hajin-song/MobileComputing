@@ -53,7 +53,7 @@ class SignIn extends Component{
   }).then( (res) => {
    return res.json();
   }).then( (res) => {
-   if(typeof(res.error) !== 'undefined'){ 
+   if(typeof(res.error) !== 'undefined'){
     console.log(res);
     return;
    }

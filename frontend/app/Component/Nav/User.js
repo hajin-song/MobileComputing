@@ -106,7 +106,7 @@ let profileNav = {
     },
     UserView: {
       screen: UserView,
-      navigationOptions: (props) => ({ title: "@username" })
+      navigationOptions: (props) => ({ title: "Profile" })
     }
   }),
   navigationOptions: {

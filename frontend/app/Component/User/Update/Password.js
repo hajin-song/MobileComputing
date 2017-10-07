@@ -44,17 +44,15 @@ export default class Password extends Component {
     },
     body: formBody
    }).then( (res) => {
+    this.setState({actionTriggered: false });
     if(typeof(res.error) !== 'undefined'){
      this.props.screenProps.onMessage('error', 'Failed Change Password!!');
-     this.setState({actionTriggered: false });
      return;
     }
     this.props.screenProps.onMessage('success', 'Successfully Changed Password!');
-    this.setState({actionTriggered: false });
    }).catch( (err) => {
     this.props.screenProps.onMessage('error', 'Failed Chang Password!');
     this.setState({actionTriggered: false });
-    console.log(err);
    });
   }
 

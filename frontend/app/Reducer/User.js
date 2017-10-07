@@ -17,7 +17,6 @@ const initialState = {
   firstName: '',
   dateOfBirth: '',
   address: '',
-  Subscriptions: 0
  },
  subscriptions: []
 }
@@ -25,9 +24,16 @@ const initialState = {
 const UserReducer = (state=initialState, action) => {
  switch(action.type){
   case UserActions.LOAD_USER:
-   return Object.assign( {}, state, { user: action.user });
+   return Object.assign( {}, state, { user: action.user, subscriptions: action.subscriptions });
   case UserActions.UPDATE_USER:
-   return Object.assign( {}, state, { user: action.user });
+   return Object.assign( {}, state, { user: action.user, subscriptions: action.subscriptions });
+  case UserActions.ADD_SUBSCRIPTION:
+   return Object.assign( {}, state, {subscriptions: [...state.subscriptions, action.subscription] });
+  case UserActions.REMOVE_SUBSCRIPTION:
+   var removed = state.subscriptions.filter( (sub) => {
+    return !(sub.UserName == action.subscription.UserName && sub.targetUserName == action.subscription.targetUserName);
+   });
+   return Object.assign( {}, state, {subscriptions: removed });
   default:
    return state;
  }

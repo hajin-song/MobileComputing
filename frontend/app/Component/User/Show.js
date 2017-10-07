@@ -9,8 +9,8 @@
 
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import {Alert,Image,Button,FlatList,TextInput,ActivityIndicator,TouchableHighlight,AsyncStorage,Text,View} from 'react-native';
-import { List, ListItem, SearchBar } from "react-native-elements";
+import { Image, FlatList,  ActivityIndicator, TouchableHighlight, Text, View} from 'react-native';
+import { List } from "react-native-elements";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './../../Style/Standard.js'
@@ -19,7 +19,8 @@ import Profile from './Show/Profile';
 
 const mapStateToProps = (state) => {
  return {
-  user: state.User
+  user: state.User.user,
+  subscriptions: state.User.subscriptions
  }
 };
 
@@ -33,7 +34,7 @@ class UserShow extends Component {
 
  renderHeader = () => {
   return (
-   <Profile user={this.props.user} navigation={this.props.navigation} />
+   <Profile user={this.props.user} navigation={this.props.navigation} subscriptions={this.props.subscriptions} />
   )
  };
 
@@ -43,10 +44,10 @@ class UserShow extends Component {
     <View key={item.ID} style={[styles.row]}>
      <View style={[styles.box]}>
       <View style={[styles.horizontalBox]} >
-       <Text style={styles.title} > {item.Name} </Text><Text style={styles.date} > {item.Comments} Comment(s) </Text>
+       <Text style={styles.title} > {item.Name} </Text><Text style={styles.date}>{item.Comments} Comment(s)</Text>
       </View>
-      <Text style={styles.date} > {item.Location}</Text>
-      <Text style={styles.date} > {item.Date} </Text>
+      <Text style={styles.date}>{item.Location}</Text>
+      <Text style={styles.date}>{item.Date}</Text>
      </View>
      <View style={[styles.box]}>
       <Image  style={{height:180,marginTop:5,marginBottom:5}} source = {{uri:item.Image}} />
@@ -70,6 +71,7 @@ class UserShow extends Component {
  };
 
  render() {
+  console.log('rendering....', this.props.subscriptions);
   return (
    <View style={styles.container}>
     <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>

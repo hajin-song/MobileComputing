@@ -1,6 +1,6 @@
 /**
- * Setting.js
- * View for User Settings Page
+ * Edit.js
+ * View for User Edit Page
  * Created On: 07-Oct-2017
  * Created By: Ha Jin Song
  * Last Modified On: 07-Oct-2017
@@ -21,12 +21,12 @@ import { jsonToURLForm } from '../../Tool/DataFormat';
 const mapStateToProps = (state) => {
  return {
   token: state.Session.token,
-  userName: state.User.userName,
-  userID: state.User.userID,
-  lastName: state.User.lastName,
-  firstName: state.User.firstName,
-  dateOfBirth: state.User.dateOfBirth,
-  address: state.User.address,
+  userName: state.User.user.userName,
+  userID: state.User.user.userID,
+  lastName: state.User.user.lastName,
+  firstName: state.User.user.firstName,
+  dateOfBirth: state.User.user.dateOfBirth,
+  address: state.User.user.address,
  }
 };
 
@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch) => {
   },
  });
 }
-
 
 const UserEdit = ({token, userName, userID, lastName, firstName, dateOfBirth, address, updateUser, navigation, screenProps}) => {
  return(

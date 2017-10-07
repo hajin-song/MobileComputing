@@ -1,9 +1,11 @@
 ﻿using eventchat.DAL;
 using eventchat.Models;
 using eventchat.Models.Repository;
+using eventchat.Models.Wrappers;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +70,11 @@ namespace eventchat.Providers
             props.Dictionary.Add("userName", user.UserName);
             using (EventChatContext db = new EventChatContext())
             {
-                props.Dictionary.Add("subscriptions", db.Subscriptions.Where(x => x.subscribedUser.UserName.Equals(user.UserName)).ToList().Count().ToString());
+                List<UserSubscription> userSubscriptions = db.Subscriptions.
+                    Where(x => x.subscribedUser.UserName.Equals(user.UserName)).
+                    Select(x => new UserSubscription { UserName=user.UserName, targetUserName=x.subscriptionUser.UserName }).
+                    ToList();
+                props.Dictionary.Add("subscriptions", JsonConvert.SerializeObject(userSubscriptions));
             }
             return props;
         }

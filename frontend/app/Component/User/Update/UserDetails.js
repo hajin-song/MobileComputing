@@ -46,17 +46,13 @@ export default class UserDetails extends Component {
     },
     body: formBody
    }).then( (res) => {
-    console.log(res, 'nyokiki!');
+    this.setState({actionTriggered: false });
     if(typeof(res.error) !== 'undefined'){
-     console.log(res);
      this.props.screenProps.onMessage('error', 'Failed to Change Details!');
-     this.setState({actionTriggered: false });
      return;
     }
     this.props.screenProps.onMessage('success', 'Successfully Changed Details!');
-    this.setState({actionTriggered: false });
    }).catch( (err) => {
-    console.log(err);
     this.props.screenProps.onMessage('error', 'Failed to Change Details!');
     this.setState({actionTriggered: false });
    });

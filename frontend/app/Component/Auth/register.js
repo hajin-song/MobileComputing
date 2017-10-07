@@ -29,7 +29,12 @@ class Register extends Component{
   this.__register = this.__register.bind(this);
  }
 
+ /**
+  * __register : void
+  * Register a new user using information in the state
+  */
  __register(){
+  // Prevent duplicate actions
   this.setState({actionTriggered: true });
   let formBody = jsonToURLForm(this.state);
   fetch('http://eventchat.azurewebsites.net/api/auth/register/', {

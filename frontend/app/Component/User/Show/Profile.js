@@ -7,54 +7,70 @@
  * Last Modified By: Ha Jin Song
  */
 
-import React from "react";
+import React, { Component } from "react";
 import { Image, TouchableHighlight, Text, View} from 'react-native';
+import { connect } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './../../../Style/Standard.js'
 
-export default Profile = ({user, navigation}) => {
- return (
-  <View>
-   <View style={[styles.row]}>
-    <View style={[styles.box]}>
-     <Image style={styles.profileImage} />
-    </View>
-    <View style={[styles.box]}>
-     <TouchableHighlight onPress={() => navigation.navigate("Subscriptions")}>
-      <View style={{justifyContent: 'center',  alignItems: 'center'}}>
-       <Text style={styles.profileNumbers}>{user.subscriptions} </Text><Text>Subscriptions</Text>
+const mapStateToProps = (state) => {
+ return {
+  userName: state.User.user.userName,
+  subscriptions: state.User.subscriptions,
+ }
+};
+
+class Profile extends Component{
+ render(){
+  var user = this.props.user;
+  var subscriptions = this.props.subscriptions;
+  var navigation = this.props.navigation;
+  console.log(user, subscriptions, navigation);
+  return (
+   <View>
+    <View style={[styles.row]}>
+     <View style={[styles.box]}>
+      <Image style={styles.profileImage} />
+     </View>
+     <View style={[styles.box]}>
+      <TouchableHighlight onPress={() => navigation.navigate("Subscriptions")}>
+       <View style={{justifyContent: 'center',  alignItems: 'center'}}>
+        <Text style={styles.profileNumbers}>{subscriptions.length} </Text><Text>Subscriptions</Text>
+       </View>
+      </TouchableHighlight>
+     </View>
+     <View style={[styles.box]}>
+      <View style={[styles.box, { alignSelf: 'flex-end'}]}>
+       <TouchableHighlight onPress={() => navigation.navigate("UserEdit")}>
+        <Ionicons name ='ios-settings-outline' size={30} color={'black'} />
+       </TouchableHighlight>
       </View>
-     </TouchableHighlight>
-    </View>
-    <View style={[styles.box]}>
-     <View style={[styles.box, { alignSelf: 'flex-end'}]}>
-      <TouchableHighlight onPress={() => navigation.navigate("UserEdit")}>
-       <Ionicons name ='ios-settings-outline' size={30} color={'black'} />
-      </TouchableHighlight>
-     </View>
-     <View style={[styles.box, { alignSelf: 'flex-end'}]}>
-      <TouchableHighlight onPress={() => navigation.navigate("Sign In")}>
-       <MaterialCommunityIcons name ='logout' size={30}  color={'black'} />
-      </TouchableHighlight>
+      <View style={[styles.box, { alignSelf: 'flex-end'}]}>
+       <TouchableHighlight onPress={() => navigation.navigate("Sign In")}>
+        <MaterialCommunityIcons name ='logout' size={30}  color={'black'} />
+       </TouchableHighlight>
+      </View>
      </View>
     </View>
-   </View>
-   <View style={[styles.row]}>
-    <View style={[styles.box]}>
-     <Text style={styles.userName}> {user.firstName} {user.lastName}</Text>
-     <Text style={styles.location}> ({user.address}) </Text>
+    <View style={[styles.row]}>
+     <View style={[styles.box]}>
+      <Text style={styles.userName}> {user.firstName} {user.lastName}</Text>
+      <Text style={styles.location}> ({user.address}) </Text>
+     </View>
+    </View>
+    <View style={[styles.seperator]}>
+    </View>
+    <View style={[styles.row]}>
+     <View style={[styles.box]}>
+      <Text style={styles.details}>Posts</Text>
+     </View>
+    </View>
+    <View style={[styles.seperator]}>
     </View>
    </View>
-   <View style={[styles.seperator]}>
-   </View>
-   <View style={[styles.row]}>
-    <View style={[styles.box]}>
-     <Text style={styles.details}>Posts</Text>
-    </View>
-   </View>
-   <View style={[styles.seperator]}>
-   </View>
-  </View>
- );
+  );
+ }
 }
+
+export default connect(mapStateToProps)(Profile)

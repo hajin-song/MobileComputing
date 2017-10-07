@@ -6,14 +6,28 @@ import styles  from './../../Style/Standard.js'
 import Header from './Subscription/Header';
 import List from './Subscription/List';
 
+import UserActions from '../../Action/User';
+
 import { jsonToURLForm } from '../../Tool/DataFormat';
 
 const mapStateToProps = (state) => {
  return {
-  userName: state.User.userName,
+  userName: state.User.user.userName,
+  subscriptions: state.User.subscriptions,
   token: state.Session.token
  }
 };
+
+const mapDispatchToProps = (dispatch) => {
+ return {
+  addSubscription: (subscription) => {
+   dispatch({ "type": UserActions.ADD_SUBSCRIPTION, "subscription": subscription });
+  },
+  removeSubscription: (subscription) => {
+   dispatch({ "type": UserActions.REMOVE_SUBSCRIPTION, "subscription": subscription });
+  }
+ }
+}
 
 class Subscriptions extends Component {
  constructor(props){
@@ -25,7 +39,6 @@ class Subscriptions extends Component {
  }
  componentWillMount(){
   let formBody = jsonToURLForm( { userName: this.props.userName } );
-  console.log(formBody);
   fetch('http://eventchat.azurewebsites.net/api/Users/index?'+ formBody,{
    'method': 'GET',
    headers: {
@@ -35,7 +48,6 @@ class Subscriptions extends Component {
   }).then( (res) => {
    return res.json();
   }).then( (res) => {
-   console.log(res);
    if(typeof(res.error) !== 'undefined'){
     this.props.screenProps.onMessage('error', 'Failed to retrieve User List!');
     return;
@@ -55,11 +67,23 @@ class Subscriptions extends Component {
      ]}
      keyExtractor={(item) => 'key-' + item.UserName}
      renderSectionHeader={({section}) => <Header title={section.title}/>}
-     renderItem={ ({item}) => <List item={item} token={this.props.token} userName={this.props.userName} onMessage={this.props.screenProps.onMessage}/> }
+     renderItem={ ({item}) => {
+      return(
+       <List
+        item={item}
+        token={this.props.token}
+        userName={this.props.userName}
+        onMessage={this.props.screenProps.onMessage}
+        addSubscription={this.props.addSubscription}
+        removeSubscription={this.props.removeSubscription}
+       />
+      )
+      }
+     }
     />
    </View>
   );
  }
 };
 
-export default connect(mapStateToProps)(Subscriptions);
+export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);

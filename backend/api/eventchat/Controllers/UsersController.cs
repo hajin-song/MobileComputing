@@ -124,40 +124,42 @@ namespace eventchat.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult Subscribe(UserSubscription userSubscription)
         {
-            User requestUser = db.Users.FirstOrDefault(x => x.UserName.Equals(userSubscription.UserName));
-            User targetUser = db.Users.FirstOrDefault(x => x.UserName.Equals(userSubscription.targetUserName));
-            if(requestUser == null || targetUser == null || requestUser.UserName.Equals(targetUser.UserName))
-            {
-                return BadRequest("Invalid Subscription Users!");
-            }
-            Subscription existingSub = db.Subscriptions.FirstOrDefault(x => x.subscribedUser.Equals(requestUser.UserName) && x.subscriptionUser.Equals(targetUser.UserName));
-            if (userSubscription.isSubscribing)
-            {
-                if (existingSub != null)
-                {
-                    return BadRequest("You are already subscribed!");
-                }
-                Subscription subscription = new Subscription();
-                subscription.subscribedUser = requestUser;
-                subscription.subscriptionUser = targetUser;
-                db.Entry(subscription).State = EntityState.Added;
-                db.Subscriptions.Add(subscription);
-            }else
-            {
-                if (existingSub == null)
-                {
-                    return BadRequest("You are not subscribed to the user!");
-                }
-                db.Entry(existingSub).State = EntityState.Deleted;
-                db.Subscriptions.Remove(existingSub);
-            }
             try
             {
+                User requestUser = db.Users.FirstOrDefault(x => x.UserName.Equals(userSubscription.UserName));
+                User targetUser = db.Users.FirstOrDefault(x => x.UserName.Equals(userSubscription.targetUserName));
+                if (requestUser == null || targetUser == null || requestUser.UserName.Equals(targetUser.UserName))
+                {
+                    return BadRequest("Invalid Subscription Users!");
+                }
+                Subscription existingSub = db.Subscriptions.FirstOrDefault(x =>
+                    x.subscribedUser.UserName.Equals(requestUser.UserName) &&
+                    x.subscriptionUser.UserName.Equals(targetUser.UserName)
+                );
+                if (userSubscription.isSubscribing)
+                {
+                    if (existingSub != null)
+                    {
+                        return BadRequest("You are already subscribed!");
+                    }
+                    Subscription subscription = new Subscription();
+                    subscription.subscribedUser = requestUser;
+                    subscription.subscriptionUser = targetUser;
+                    db.Entry(subscription).State = EntityState.Added;
+                    db.Subscriptions.Add(subscription);
+                }
+                else
+                {
+                    if (existingSub == null)
+                    {
+                        return BadRequest("You are not subscribed to the user!");
+                    }
+                    db.Entry(existingSub).State = EntityState.Deleted;
+                    db.Subscriptions.Remove(existingSub);
+                }
                 db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return BadRequest("Could not process the subscription request!");
+            }catch(Exception e) { 
+                return BadRequest("Could not process the subscription request! - " + e.Message);
             }
             return StatusCode(HttpStatusCode.NoContent);
         }

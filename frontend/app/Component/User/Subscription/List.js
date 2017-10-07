@@ -16,7 +16,7 @@ export default class List extends Component {
  }
  __buttonClicked(){
   let formBody = jsonToURLForm({
-   isSubscribing:this.state.subscribed,
+   isSubscribing: !this.state.subscribed,
    userName: this.props.userName,
    targetUserName: this.props.item.UserName
   });

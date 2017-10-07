@@ -10,21 +10,24 @@
 import UserActions from '../Action/User';
 
 const initialState = {
- userName: '',
- userID: '',
- lastName: '',
- firstName: '',
- dateOfBirth: '',
- address: '',
- Subscriptions: 0
+ user: {
+  userName: '',
+  userID: '',
+  lastName: '',
+  firstName: '',
+  dateOfBirth: '',
+  address: '',
+  Subscriptions: 0
+ },
+ subscriptions: []
 }
 
 const UserReducer = (state=initialState, action) => {
  switch(action.type){
   case UserActions.LOAD_USER:
-   return Object.assign( {}, state, action.user);
+   return Object.assign( {}, state, { user: action.user });
   case UserActions.UPDATE_USER:
-   return Object.assign( {}, state, action.user);
+   return Object.assign( {}, state, { user: action.user });
   default:
    return state;
  }

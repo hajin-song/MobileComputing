@@ -12,7 +12,7 @@ import { View } from "react-native";
 import { Card } from "react-native-elements";
 
 import { FormField, FormFieldPassword } from '../Common/FormField';
-import { NavButton } from '../Common/Button';
+import { ActionButton } from '../Common/Button';
 
 import SessionActions from '../../Action/Session';
 import UserActions from '../../Action/User';
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 class SignIn extends Component{
  constructor(props){
   super(props);
-  this.state = { Username: 'tester', Password: 'qwerty' };
+  this.state = { Username: 'tester', Password: 'qwerty', actionTriggered: false, };
   this.__authenticate = this.__authenticate.bind(this);
  }
  __authenticate(){
@@ -55,6 +55,8 @@ class SignIn extends Component{
   }).then( (res) => {
    if(typeof(res.error) !== 'undefined'){
     console.log(res);
+    this.props.screenProps.onMessage('error', 'Log In failed!');
+    this.setState({actionTriggered: false });
     return;
    }
    this.props.setUser({
@@ -66,8 +68,12 @@ class SignIn extends Component{
     userID: res.userID
    });
    this.props.setToken(res.token_type + ' ' + res.access_token);
+   this.props.screenProps.onMessage('success', 'Log In success!');
+   this.setState({actionTriggered: false });
   }).catch( (err) => {
    console.log(err);
+   this.props.screenProps.onMessage('error', 'Log In failed!');
+   this.setState({actionTriggered: false });
   });
  }
  render(){
@@ -86,7 +92,7 @@ class SignIn extends Component{
        placeholder="Password"
        onChange={Password => this.setState({Password})}
       />
-      <NavButton title="Log In" onPress={ () => this.__authenticate() } />
+      <ActionButton title="Log In" onPress={ () => this.__authenticate() } disabled={this.state.actionTriggered} />
      </Card>
    </View>
   );

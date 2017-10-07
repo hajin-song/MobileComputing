@@ -22,10 +22,6 @@ import comments from './../Data/comments.json';
 
 
 export default class Profile extends Component {
-
-
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +31,6 @@ export default class Profile extends Component {
       refreshing: false
     };
   }
-
 
   renderHeader = () => {
     return (
@@ -80,7 +75,7 @@ export default class Profile extends Component {
       <View style={[styles.row]}>
 
       <View style={[styles.box]}>
-      <Text style={styles.username}> {user.FirstName} {user.LastName}</Text>
+      <Text style={styles.userName}> {user.firstName} {user.lastName}</Text>
       <Text style={styles.location}> ({user.Location}) </Text>
       <Text style={styles.details}> {user.Details} </Text>
       </View>

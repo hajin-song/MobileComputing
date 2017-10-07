@@ -66,7 +66,7 @@ export default class UserView extends Component {
       <View style={[styles.row]}>
 
       <View style={[styles.box]}>
-      <Text style={styles.username}> {user.FirstName} {user.LastName}</Text>
+      <Text style={styles.userName}> {user.firstName} {user.lastName}</Text>
       <Text style={styles.location}> ({user.Location}) </Text>
       <Text style={styles.details}> {user.Details} </Text>
       </View>

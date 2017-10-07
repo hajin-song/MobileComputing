@@ -66,6 +66,41 @@ namespace eventchat.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Route("updatepassword")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult UpdatePassword(UserPost user)
+        {
+            User dbUser = db.Users.Where(x => x.UserName.Equals(user.UserName)).FirstOrDefault();
+            if (dbUser == null) { return NotFound(); }
+            if(user.Password != null)
+            {
+                if (user.Password.Equals(user.ConfirmPassword))
+                {
+                    dbUser.Password = user.Password;
+                }
+                else
+                {
+                    return BadRequest("Password does not match!");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid Password!");
+            }
+            db.Entry(dbUser).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         [Route("subscribe")]
         [ResponseType(typeof(void))]
         public IHttpActionResult Subscribe(UserSubscribe userSubscription)

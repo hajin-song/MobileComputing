@@ -15,7 +15,7 @@ export default StyleSheet.create({
     fontSize: 30,
     alignSelf:'center'
   },
-  username:{
+  userName:{
     fontSize:17,
     color:'black',
     fontWeight:'400'
@@ -41,8 +41,7 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginTop: 3,
     marginRight: 10,
-    marginLeft: 10,
-    justifyContent: 'center'
+    marginLeft: 10
   },
   horizontalBox: {
     flex: 1,

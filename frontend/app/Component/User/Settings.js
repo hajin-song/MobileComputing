@@ -4,129 +4,49 @@
 * 2- Change password
 */
 
-import React, {Component } from 'react';
-import {Text,ScrollView,Button,View,TextInput,StyleSheet,TouchableHighlight,ActivityIndicatorIOS} from 'react-native';
-import styles  from './../../Style/Standard.js'
-import { Card } from "react-native-elements";
-import { FormField, FormFieldPassword } from '../Common/FormField';
-import DatePicker from 'react-native-datepicker'
+import React, { Component } from 'react';
+import { ScrollView, View } from 'react-native';
+import styles  from './../../Style/Standard';
 
-/* data imports - @TODO remove later */
-import user from './../Data/User.json';
+import { connect } from 'react-redux';
 
-import UserActions from '../../Actions/User';
+import PasswordUpdate from './Update/Password';
+import DetailUpdate from './Update/Profile';
 
-export default class Settings extends Component {
+import { jsonToURLForm } from '../../Tool/DataFormat';
 
-  constructor(props) {
-   super(props);
-   this.state = {
-    FirstName: user.FirstName,
-    LastName: user.LastName,
-    Username: user.UserName,
-    Details: user.Details,
-    Image: user.Image,
-    Email: user.Email,
-    DoB: user.DoB,
-    Password: ""
-   };
-  };
-
-
-  render() {
-   return(
-    <View style={styles.container}>
-     <ScrollView>
-      <View style={{ paddingVertical: 20 }}>
-       <Card>
-        <FormField
-         title="First Name"
-         defaultValue={this.state.FirstName}
-         placeholder="First Name"
-         onChange={FirstName => this.setState({FirstName})}
-        />
-        <FormField
-         title="Last Name"
-         defaultValue={this.state.LastName}
-         placeholder="Last Name"
-         onChange={LastName => this.setState({LastName})}
-        />
-        <FormField
-         title="Details"
-         defaultValue={this.state.Details}
-         placeholder="Details"
-         onChange={Details => this.setState({Details})}
-        />
-        <FormField
-         title="Email"
-         defaultValue={this.state.Email}
-         placeholder="Email Address"
-         onChange={Email => this.setState({Email})}
-        />
-        <FormField
-         title="Location"
-         defaultValue={this.state.Location}
-         placeholder="Location"
-         onChange={Location => this.setState({Location})}
-        />
-        <FormField
-         title="Profile Picture"
-         defaultValue={this.state.Image}
-         placeholder="Profile Picture"
-         onChange={Image => this.setState({Image})}
-        />
-        <DatePicker
-         style={{width: 200}}
-         date={this.state.DoB}
-         mode="date"
-         placeholder="Date of birth."
-         format="DD-MM-YYYY"
-         minDate="01-0-1-1900"
-         maxDate="01-01-2002"
-         confirmBtnText="Confirm"
-         cancelBtnText="Cancel"
-         customStyles={{
-          dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 },
-          dateInput: { marginLeft: 36 }
-         }}
-         onDateChange={(date) => {this.setState({DoB: date})}}
-        />
-        <View style={[styles.row]}>
-         <View style={[styles.box]}>
-          <Button title="Cancel" onPress={() => this.props.navigation.navigate("Profile")}/>
-         </View>
-         <View style={[styles.box]}>
-          <Button title="Update" onPress={() => this.props.navigation.navigate("Profile")} />
-         </View>
-        </View>
-       </Card>
-      </View>
-      <View style={{ paddingVertical: 20 }}>
-       <Card>
-        <FormFieldPassword
-         title="New Password"
-         defaultValue={this.state.Password}
-         placeholder="New Password"
-         onChange={Password => this.setState({Password})}
-        />
-        <FormFieldPassword
-         title="Confirm Password"
-         defaultValue={this.state.ConfirmPassword}
-         placeholder="Confirm Password"
-         onChange={ConfirmPassword => this.setState({ConfirmPassword})}
-        />
-       <View style={[styles.row]}>
-        <View style={[styles.box]}>
-         <Button title="Cancel" onPress={() => this.props.navigation.navigate("Profile")}/>
-        </View>
-        <View style={[styles.box]}>
-         <Button title="Update" onPress={() => this.props.navigation.navigate("Profile")} />
-        </View>
-       </View>
-      </Card>
-     </View>
-    </ScrollView>
-   </View>
-   );
+const mapStateToProps = (state) => {
+ return {
+  token: state.Session.token,
+  userName: state.User.userName,
+  userID: state.User.userID,
+  lastName: state.User.lastName,
+  firstName: state.User.firstName,
+  dateOfBirth: state.User.dateOfBirth,
+  address: state.User.address,
  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+ return ({
+  updateUser: (user) => {
+   dispatch({ 'type': UserActions.UPDATE_USER, 'user': user });
+  },
+ });
 }
+
+
+const Setting = ({token, userName, userID, lastName, firstName, dateOfBirth, address, updateUser}) => {
+ return(
+  <View style={styles.container}>
+   <ScrollView>
+    <DetailUpdate
+     token={token} userName={userName} userID={userID} lastName={lastName} firstName={firstName} dateOfBirth={dateOfBirth} address={address} onPress={updateUser}
+    />
+    <PasswordUpdate userName={userName} token={token}/>
+   </ScrollView>
+  </View>
+ );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Setting);

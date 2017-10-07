@@ -19,9 +19,12 @@ class Register extends Component{
  constructor(props){
   super(props);
   this.state = {
-   Username: '',
-   Password: '',
-   ConfirmPassword: ''
+   Username: 'tester',
+   Password: 'qwerty',
+   ConfirmPassword: 'qwerty',
+   Address: 'empty',
+   FirstName: 'headed',
+   LastName: '120 Scholar Street'
   }
   this.__register = this.__register.bind(this);
  }
@@ -36,6 +39,10 @@ class Register extends Component{
    },
    body: formBody
   }).then( (res) => {
+   if(typeof(res.error) !== 'undefined'){
+    console.log(res);
+    return;
+   }
    this.props.navigation.navigate("Login");
   }).catch( (err) => {
     console.log(err);

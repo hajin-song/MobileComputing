@@ -268,7 +268,6 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\EventChatContext.cs" />
     <Compile Include="DAL\EventChatInitialiser.cs" />
     <Compile Include="Global.asax.cs">
@@ -294,6 +293,10 @@
     <Compile Include="Migrations\201710071304556_AddSourceToEvent.Designer.cs">
       <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710071517320_RemoveDummyTable.cs" />
+    <Compile Include="Migrations\201710071517320_RemoveDummyTable.Designer.cs">
+      <DependentUpon>201710071517320_RemoveDummyTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Event.cs" />
@@ -302,8 +305,8 @@
     <Compile Include="Models\Repository\UserAuth.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Wrappers\CommentPost.cs" />
+    <Compile Include="Models\Wrappers\UserIndex.cs" />
     <Compile Include="Models\Wrappers\UserPost.cs" />
     <Compile Include="Models\Wrappers\UserSubscribe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -419,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710071304556_AddSourceToEvent.resx">
       <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710071517320_RemoveDummyTable.resx">
+      <DependentUpon>201710071517320_RemoveDummyTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

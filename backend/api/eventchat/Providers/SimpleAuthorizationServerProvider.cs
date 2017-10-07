@@ -37,6 +37,7 @@ namespace eventchat.Providers
                     return;
                 }
             }
+           
             ClaimsIdentity identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
@@ -65,6 +66,10 @@ namespace eventchat.Providers
             props.Dictionary.Add("userID", user.Id);
             props.Dictionary.Add("dataOfBirth", user.DateOfBirth.ToShortDateString());
             props.Dictionary.Add("userName", user.UserName);
+            using (EventChatContext db = new EventChatContext())
+            {
+                props.Dictionary.Add("subscriptions", db.Subscriptions.Where(x => x.subscribedUser.UserName.Equals(user.UserName)).ToList().Count().ToString());
+            }
             return props;
         }
     }

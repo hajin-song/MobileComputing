@@ -15,35 +15,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './../../Style/Standard.js'
 
-/* data imports - @TODO remove later */
-import user from './../Data/User.json';
-import posts from './../Data/Posts.json';
-import comments from './../Data/comments.json';
-
 import Profile from './Show/Profile';
 
 const mapStateToProps = (state) => {
  return {
-  user:{
-   userName: state.User.userName,
-   userID: state.User.userID,
-   lastName: state.User.lastName,
-   firstName: state.User.firstName,
-   dateOfBirth: state.User.dateOfBirth,
-   address: state.User.address,
-  }
+  user: state.User
  }
 };
 
 class UserShow extends Component {
  constructor(props) {
   super(props);
-  this.state = {
-   loading: false,
-   data: posts, //@data of posts imported from JSON
-   comments: comments, //@data of comments imported from JSON
-   refreshing: false
-  };
+  this.state ={
+   data: []
+  }
  }
 
  renderHeader = () => {
@@ -72,10 +57,8 @@ class UserShow extends Component {
  }
 
  renderFooter = () => {
-  if (!this.state.loading) return null;
   return (
    <View style={{ paddingVertical: 20, borderTopWidth: 1, borderColor: "#CED0CE" }}>
-    <ActivityIndicator animating size="large" />
    </View>
   );
  };
@@ -91,7 +74,7 @@ class UserShow extends Component {
    <View style={styles.container}>
     <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
      <FlatList data={this.state.data}
-     renderItem={({item}) => this.renderList}
+      renderItem={({item}) => this.renderList}
       keyExtractor={item => item.ID}
       onRefresh={this.handleRefresh}
       ItemSeparatorComponent={this.renderSeparator}

@@ -21,15 +21,10 @@ export default Profile = ({user, navigation}) => {
      <Image style={styles.profileImage} />
     </View>
     <View style={[styles.box]}>
-     <Text style={styles.profileNumbers}>FIX</Text>
-     <Text>Contributions {"\n"} </Text>
-    </View>
-    <View style={[styles.box]}>
      <TouchableHighlight onPress={() => navigation.navigate("Subscriptions")}>
-      <Text style={styles.profileNumbers}>FIX</Text>
-     </TouchableHighlight>
-     <TouchableHighlight onPress={() => navigation.navigate("Subscriptions")}>
-      <Text>Subscriptions {"\n"} </Text>
+      <View style={{justifyContent: 'center',  alignItems: 'center'}}>
+       <Text style={styles.profileNumbers}>{user.subscriptions} </Text><Text>Subscriptions</Text>
+      </View>
      </TouchableHighlight>
     </View>
     <View style={[styles.box]}>

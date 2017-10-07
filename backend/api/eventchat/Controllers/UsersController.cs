@@ -21,10 +21,11 @@ namespace eventchat.Controllers
     {
         private EventChatContext db = new EventChatContext();
 
+        [HttpGet]
         [Route("index")]
-        public IQueryable<User> Index()
+        public List<UserIndex> Index(String userName)
         {
-            return db.Users;
+            return db.Users.Where(x => !x.UserName.Equals(userName)).Select(x => new UserIndex{ FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName }).ToList(); ;
         }
 
         [Route("update")]

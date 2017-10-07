@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 class SignIn extends Component{
  constructor(props){
   super(props);
-  this.state = { Username: 'tester123', Password: 'qwerty', actionTriggered: false, };
+  this.state = { Username: 'tester123', Password: 'qwerty', actionTriggered: false };
   this.__authenticate = this.__authenticate.bind(this);
  }
  __authenticate(){
@@ -66,7 +66,8 @@ class SignIn extends Component{
     address: res.address,
     dateOfBirth: res.dateOfBirth,
     userName: res.userName,
-    userID: res.userID
+    userID: res.userID,
+    subscriptions: res.subscriptions
    });
    this.props.setToken(res.token_type + ' ' + res.access_token);
    this.props.screenProps.onMessage('success', 'Log In success!');

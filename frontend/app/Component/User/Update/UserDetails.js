@@ -46,6 +46,7 @@ export default class UserDetails extends Component {
     },
     body: formBody
    }).then( (res) => {
+    console.log(res, 'nyokiki!');
     if(typeof(res.error) !== 'undefined'){
      console.log(res);
      this.props.screenProps.onMessage('error', 'Failed to Change Details!');

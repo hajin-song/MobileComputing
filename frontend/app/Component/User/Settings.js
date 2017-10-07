@@ -1,8 +1,11 @@
 /**
-* Settings
-* 1- Update personal information
-* 2- Change password
-*/
+ * Setting.js
+ * View for User Settings Page
+ * Created On: 07-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 07-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
 
 import React, { Component } from 'react';
 import { ScrollView, View } from 'react-native';
@@ -11,7 +14,7 @@ import styles  from './../../Style/Standard';
 import { connect } from 'react-redux';
 
 import PasswordUpdate from './Update/Password';
-import DetailUpdate from './Update/Profile';
+import DetailUpdate from './Update/UserDetails';
 
 import { jsonToURLForm } from '../../Tool/DataFormat';
 

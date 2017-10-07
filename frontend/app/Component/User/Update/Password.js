@@ -1,25 +1,25 @@
 /**
-* Settings
-* 1- Update personal information
-* 2- Change password
-*/
+ * Password.js
+ * View for Password Change Page
+ * Created On: 07-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 07-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
 
-import React, {Component } from 'react';
-import {Button,View,TextInput,TouchableHighlight,ActivityIndicatorIOS} from 'react-native';
+import React, { Component } from 'react';
+import { View } from 'react-native';
 import styles  from './../../../Style/Standard';
 import { Card } from "react-native-elements";
-import { FormField, FormFieldPassword } from '../../Common/FormField';
+import { FormFieldPassword } from '../../Common/FormField';
 import { ActionButton } from '../../Common/Button';
 import DatePicker from 'react-native-datepicker'
-
-/* data imports - @TODO remove later */
-import user from './../../Data/User.json';
 
 import UserActions from '../../../Action/User';
 
 import { jsonToURLForm } from '../../../Tool/DataFormat';
 
-export default class Settings extends Component {
+export default class Password extends Component {
 
   constructor(props) {
    super(props);

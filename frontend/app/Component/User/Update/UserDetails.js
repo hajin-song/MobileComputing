@@ -1,14 +1,17 @@
 /**
-* Settings
-* 1- Update personal information
-* 2- Change password
-*/
+ * UserDetails.js
+ * View for User Detail Change Page
+ * Created On: 07-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 07-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
 
 import React, {Component } from 'react';
-import {Button,View,TextInput,StyleSheet,TouchableHighlight,ActivityIndicatorIOS} from 'react-native';
+import { View } from 'react-native';
 import styles  from './../../../Style/Standard';
 import { Card } from "react-native-elements";
-import { FormField, FormFieldPassword } from '../../Common/FormField';
+import { FormField } from '../../Common/FormField';
 import { ActionButton } from '../../Common/Button';
 import DatePicker from 'react-native-datepicker'
 
@@ -19,7 +22,7 @@ import UserActions from '../../../Action/User';
 
 import { jsonToURLForm } from '../../../Tool/DataFormat';
 
-export default class Settings extends Component {
+export default class UserDetails extends Component {
   constructor(props) {
    super(props);
    this.state = {

@@ -16,9 +16,10 @@ import { addNavigationHelpers } from 'react-navigation';
 import Session from './Reducer/Session';
 import Map from './Reducer/Map';
 import Event from './Reducer/Event';
+import User from './Reducer/User';
 
 const Reducer = combineReducers({
- Session, Map, Event
+ Session, Map, Event, User
 });
 
 const store = createStore(Reducer, {});

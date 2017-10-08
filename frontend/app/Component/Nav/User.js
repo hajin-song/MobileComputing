@@ -18,7 +18,6 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import UserEdit from '../User/Edit';
 import UserShow from '../User/Show';
 import Subscriptions from '../User/Subscriptions.js';
-import UserView from '../User/UserView.js';
 
 import EventList from '../Event/Index.js';
 import EventMap from '../Map/MapView.js';
@@ -99,10 +98,6 @@ let profileNav = {
     },
     Subscriptions: {
       screen: Subscriptions,
-      navigationOptions: (props) => ({ title: "Profile" })
-    },
-    UserView: {
-      screen: UserView,
       navigationOptions: (props) => ({ title: "Profile" })
     }
   }),

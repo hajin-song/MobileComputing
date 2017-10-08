@@ -7,7 +7,7 @@
  * Last Modified By: Ha Jin Song
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
 import styles  from './../../Style/Standard';
 
@@ -38,7 +38,11 @@ const mapDispatchToProps = (dispatch) => {
  });
 }
 
-const UserEdit = ({token, userName, userID, lastName, firstName, dateOfBirth, address, updateUser, navigation, screenProps}) => {
+const UserEdit = ({
+ token, userName, userID,
+ lastName, firstName, dateOfBirth, address,
+ updateUser, navigation, screenProps
+}) => {
  return(
   <View style={styles.container}>
    <ScrollView>

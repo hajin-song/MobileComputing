@@ -77,6 +77,7 @@ class SignIn extends Component{
    this.props.setToken(res.token_type + ' ' + res.access_token);
    this.props.screenProps.onMessage('success', 'Log In success!');
   }).catch( (err) => {
+   console.log(err);
    this.props.screenProps.onMessage('error', 'Log In failed!');
    this.setState({actionTriggered: false });
   });

@@ -1,9 +1,6 @@
 import React,{Component} from 'react'
-import {StyleSheet,TouchableHighlight,FlatList,View,Image,Text} from 'react-native'
+import { FlatList, View, Text} from 'react-native'
 import { List, ListItem } from "react-native-elements";
-
-// @delete data imports 
-import event from './../Data/Event.json'
 
 export default class Event extends Component{
 

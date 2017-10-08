@@ -38,6 +38,7 @@ class Subscriptions extends Component {
   }
  }
  componentWillMount(){
+  // When Component is mounting, get users available for subscription
   let formBody = jsonToURLForm( { userName: this.props.userName } );
   fetch('http://eventchat.azurewebsites.net/api/Users/index?'+ formBody,{
    'method': 'GET',

@@ -20,7 +20,6 @@ import UserActions from '../../../Action/User';
 import { jsonToURLForm } from '../../../Tool/DataFormat';
 
 export default class Password extends Component {
-
   constructor(props) {
    super(props);
    this.state = {
@@ -31,7 +30,10 @@ export default class Password extends Component {
    this.__updatePassword = this.__updatePassword.bind(this);
   };
 
-
+  /**
+   * __updatePassword : void
+   * Updates the Password
+   */
   __updatePassword(){
    this.setState({actionTriggered: true });
    let formBody = jsonToURLForm(Object.assign({}, this.state, {UserName: this.props.userName }));

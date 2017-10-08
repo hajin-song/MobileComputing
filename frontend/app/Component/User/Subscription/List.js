@@ -8,7 +8,7 @@
  */
 
 import React, { Component } from 'react';
-import { Button, Text, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableHighlight } from 'react-native';
 import { ActionButton } from '../../Common/Button';
 import styles  from './../../../Style/Standard.js'
 
@@ -27,6 +27,7 @@ export default class List extends Component {
  /**
   * __buttonClicked : void
   * Subscription Action trigger
+  * On success, updates the subscription count
   */
  __buttonClicked(){
   this.setState({actionTriggered: true });

@@ -1,20 +1,16 @@
 /**
-* Events
-* 1- constructor: initializing states.
-* 2- renderHeader: List's header, contains user's basic info.
-* 3- render: List containing the user's posts.
-* 4- renderFooter: Renders an activity indicator if list is loading.
-* 5- renderSeparator: Renders the line seperator of list elements.
-*/
+ * Index.js
+ * View for Event Index - Main
+ * Created On: 08-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 08-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
 
-import React,{Component} from 'react'
-import {StyleSheet,TouchableHighlight,View,Image,Text,FlatList} from 'react-native'
+import React from 'react'
+import { FlatList } from 'react-native'
+import { List } from "react-native-elements";
 import { connect } from 'react-redux';
-import events from './../Data/Events.json'
-import comments from './../Data/comments.json'
-import { List, ListItem } from "react-native-elements";
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import { StackNavigator } from 'react-navigation';
 import styles from './../../Style/Standard.js'
 
 import EventList from './Index/List';
@@ -31,22 +27,17 @@ const mapDispatchToProps = (dispatch) => {
  });
 }
 
-class Event extends Component{
- //Comments List within each event post.
- render(){
-  return(
-   <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-    <FlatList
-     data={this.props.events}
-     renderItem={({ item }) => <EventList item={item} navigation={this.props.navigation} />}
-     keyExtractor={item => item.EventID}
-     onRefresh={this.handleRefresh}
-     onEndReached={this.handleLoadMore}
-     onEndReachedThreshold={50}
-    />
-   </List>
-  );
- }
+const Event = ({ events, navigation }) => {
+ return(
+  <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+   <FlatList
+    data={events}
+    renderItem={({ item }) => <EventList item={item} navigation={navigation} />}
+    keyExtractor={item => item.EventID}
+    onEndReachedThreshold={50}
+   />
+  </List>
+ );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Event);

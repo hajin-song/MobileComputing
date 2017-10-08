@@ -7,8 +7,8 @@
  * Last Modified By: Ha Jin Song
  */
 
-import React, { Component } from 'react';
-import {  Text, View } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 import styles  from './../../../Style/Standard.js'
 
 export default Header = ({title}) => {

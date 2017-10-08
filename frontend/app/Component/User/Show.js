@@ -71,7 +71,6 @@ class UserShow extends Component {
  };
 
  render() {
-  console.log('rendering....', this.props.subscriptions);
   return (
    <View style={styles.container}>
     <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>

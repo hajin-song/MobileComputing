@@ -35,7 +35,7 @@ namespace eventchat.Controllers
             foreach(Event evt in events)
             {
                 GeoCoordinate cur = new GeoCoordinate(evt.Latitude, evt.Longitude);
-                if(centre.GetDistanceTo(cur) <= 2000) { result.Add(evt); }
+                if(centre.GetDistanceTo(cur) <= 20000) { result.Add(evt); }
             }
             return result;
         }

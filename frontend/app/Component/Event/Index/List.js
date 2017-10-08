@@ -15,10 +15,13 @@ import styles from './../../../Style/Standard'
 
 import Comments from './Comments';
 
-export default EventList = ({ item, navigation }) => {
+export default EventList = ({ item, navigation, onPress }) => {
  //Comments List within each event post.
  return(
-  <TouchableHighlight onPress={() => navigation.navigate("Event")}>
+  <TouchableHighlight onPress={() => {
+   onPress(item);
+   navigation.navigate("EventShow");
+  }}>
    <View key={item.EventID}>
     <View>
      <Text style={styles.title}>{item.Name}</Text>

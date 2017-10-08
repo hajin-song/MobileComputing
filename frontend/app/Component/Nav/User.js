@@ -20,6 +20,7 @@ import UserShow from '../User/Show';
 import Subscriptions from '../User/Subscriptions.js';
 
 import EventList from '../Event/Index.js';
+import EventShow from '../Event/Show.js';
 import EventMap from '../Map/MapView.js';
 import Post from '../Post/Post.js';
 
@@ -30,93 +31,100 @@ import { NavStyle } from './Style';
 
 // ===================== Navigation Components ========================== //
 let eventsNav = {
-  screen: StackNavigator({
-    EventList: {
-      screen: EventList,
-      navigationOptions: ({navigation}) => ({
-        title: "Events",
-        headerStyle: { paddingRight: 10, paddingLeft: 10 }
-      })
-    },
-  }),
-  navigationOptions: {
-    showLabel: 'false',
-    tabBarLabel: '',
-    tabBarIcon: ({ tintColor }) => (<MaterialIcons name='list' size={26} style={{ color: tintColor }} />)
+ screen: StackNavigator({
+  EventList: {
+   screen: EventList,
+   navigationOptions: ({navigation}) => ({
+    title: "Events",
+    headerStyle: { paddingRight: 10, paddingLeft: 10 }
+  })
+  },
+  EventShow: {
+   screen: EventShow,
+   navigationOptions: ({navigation}) => ({
+    title: "Events",
+    headerStyle: { paddingRight: 10, paddingLeft: 10 }
+  })
   }
+ }),
+ navigationOptions: {
+  showLabel: 'false',
+  tabBarLabel: '',
+  tabBarIcon: ({ tintColor }) => (<MaterialIcons name='list' size={26} style={{ color: tintColor }} />)
+ }
 };
 
 let mapsNav = {
-  screen: EventMap,
-  navigationOptions: {
-    showLabel: 'false',
-    tabBarLabel: '',
-    tabBarIcon: ({ tintColor }) => (<Foundation name='map' size={26} style={{ color: tintColor }} />)
-  }
+ screen: EventMap,
+ navigationOptions: {
+  showLabel: 'false',
+  tabBarLabel: '',
+  tabBarIcon: ({ tintColor }) => (<Foundation name='map' size={26} style={{ color: tintColor }} />)
+ }
 }
 
 let postsNav = {
-  screen: Post,
-  navigationOptions: {
-    showLabel: 'false',
-    tabBarLabel: '',
-    tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-pin-outline' size={26} style={{ color: tintColor }} />)
-  }
+ screen: Post,
+ navigationOptions: {
+  showLabel: 'false',
+  tabBarLabel: '',
+  tabBarIcon: ({ tintColor }) => (<Ionicons name='ios-pin-outline' size={26} style={{ color: tintColor }} />)
+ }
 };
 
 let exploreNav = {
-  screen: StackNavigator({
-    Explore: {
-      screen: Explore,
-      navigationOptions: ({navigation}) => ({
-        showLabel: 'false'
-      })
-    },
-    ExploreView: {
-      screen: ExploreView,
-      navigationOptions: (props) => ({
-        title: "@username",
-      })
-    }
-  }),
-  navigationOptions: {
-    showLabel: 'false',
-    tabBarLabel: '',
-    tabBarIcon: ({ tintColor }) => (<MaterialIcons name='explore' size={26} style={{ color: tintColor }} />)
+ screen: StackNavigator({
+  Explore: {
+   screen: Explore,
+   navigationOptions: ({navigation}) => ({
+     showLabel: 'false'
+   })
+  },
+  ExploreView: {
+   screen: ExploreView,
+   navigationOptions: (props) => ({
+     title: "@username",
+   })
   }
+ }),
+ navigationOptions: {
+  showLabel: 'false',
+  tabBarLabel: '',
+  tabBarIcon: ({ tintColor }) => (<MaterialIcons name='explore' size={26} style={{ color: tintColor }} />)
+ }
 };
 
 let profileNav = {
-  screen: StackNavigator({
-    UserShow: {
-      screen: UserShow,
-      navigationOptions:({navigation}) => ({ title: "Profile" })
-    },
-    UserEdit: {
-      screen: UserEdit,
-      navigationOptions: (props) => ({ title: "Profile" })
-    },
-    Subscriptions: {
-      screen: Subscriptions,
-      navigationOptions: (props) => ({ title: "Profile" })
-    }
-  }),
-  navigationOptions: {
-    showLabel: 'false',
-    tabBarLabel: '',
-    tabBarIcon: ({ tintColor }) => (<Ionicons name='md-person' size={26} style={{ color: tintColor }} />)
+ screen: StackNavigator({
+  UserShow: {
+   screen: UserShow,
+   navigationOptions:({navigation}) => ({ title: "Profile" })
+  },
+  UserEdit: {
+   screen: UserEdit,
+   navigationOptions: (props) => ({ title: "Profile" })
+  },
+  Subscriptions: {
+   screen: Subscriptions,
+   navigationOptions: (props) => ({ title: "Profile" })
   }
+ }),
+ navigationOptions: {
+  showLabel: 'false',
+  tabBarLabel: '',
+  tabBarIcon: ({ tintColor }) => (<Ionicons name='md-person' size={26} style={{ color: tintColor }} />)
+ }
 }
 
 // ====================================================================== //
 
 export default TabNavigator(
-  {
-    Maps: mapsNav,
-    Events: eventsNav,
-    Post : postsNav,
-    Explore: exploreNav,
-    Profile:  profileNav
-  },
-  NavStyle
+ {
+  Maps: mapsNav,
+  Events: eventsNav,
+  Post : postsNav,
+  Explore: exploreNav,
+  Profile:  profileNav
+ },
+ NavStyle
 );

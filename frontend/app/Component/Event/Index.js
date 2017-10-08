@@ -15,6 +15,8 @@ import styles from './../../Style/Standard.js'
 
 import EventList from './Index/List';
 
+import EventActions from '../../Action/Event';
+
 const mapStateToProps = (state) => {
  return {
   events: state.Event.events
@@ -23,16 +25,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
  return ({
-
+  selectEvent: (event) => {
+   dispatch({'type': EventActions.SELECT_EVENT, 'curEvent': event});
+  }
  });
 }
 
-const Event = ({ events, navigation }) => {
+const Event = ({ events, navigation, selectEvent }) => {
  return(
   <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
    <FlatList
     data={events}
-    renderItem={({ item }) => <EventList item={item} navigation={navigation} />}
+    renderItem={({ item }) => <EventList item={item} navigation={navigation} onPress={selectEvent} />}
     keyExtractor={item => item.EventID}
     onEndReachedThreshold={50}
    />

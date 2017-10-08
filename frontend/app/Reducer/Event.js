@@ -10,16 +10,18 @@
 import EventsAction from '../Action/Event';
 
 const initialState = {
- events: []
+ events: [],
+ curEvent: {}
 }
 
 const EventReducer = (state=initialState, action) => {
  switch(action.type){
   case EventsAction.CREATE_EVENT:
-   console.log(action);
    return state;
   case EventsAction.LOAD_EVENTS:
    return Object.assign({}, state, { events: action.events });
+  case EventsAction.SELECT_EVENT:
+   return Object.assign({}, state, { curEvent: action.curEvent });
   default:
    return state;
  }

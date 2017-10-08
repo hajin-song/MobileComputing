@@ -16,7 +16,7 @@ export default class Comments extends Component{
  render(){
   return(
       <FlatList
-       data={comments}
+       data={this.props.comments}
        renderItem={({ item }) => (
         <View>
         <Text key={item.CommentID} > {item.Commenter} {item.Comment} </Text>

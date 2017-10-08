@@ -9,6 +9,7 @@
 
 import React,{Component} from 'react'
 import {StyleSheet,TouchableHighlight,View,Image,Text,FlatList} from 'react-native'
+import { connect } from 'react-redux';
 import events from './../Data/Events.json'
 import comments from './../Data/comments.json'
 import { List, ListItem } from "react-native-elements";
@@ -18,14 +19,26 @@ import styles from './../../Style/Standard.js'
 
 import EventList from './Index/List';
 
-export default class Event extends Component{
+const mapStateToProps = (state) => {
+ return {
+  events: state.Event.events
+ }
+};
+
+const mapDispatchToProps = (dispatch) => {
+ return ({
+
+ });
+}
+
+class Event extends Component{
  //Comments List within each event post.
  render(){
   return(
    <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
     <FlatList
-     data={[]}
-     renderItem={({ item }) => <EventList />}
+     data={this.props.events}
+     renderItem={({ item }) => <EventList item={item} navigation={this.props.navigation} />}
      keyExtractor={item => item.EventID}
      onRefresh={this.handleRefresh}
      onEndReached={this.handleLoadMore}
@@ -35,3 +48,5 @@ export default class Event extends Component{
   );
  }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Event);

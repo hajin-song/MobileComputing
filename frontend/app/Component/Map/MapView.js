@@ -3,7 +3,7 @@
  * Map View
  * Created On: 01-Oct-2017
  * Created By: Ha Jin Song
- * Last Modified On: 01-Oct-2017
+ * Last Modified On: 08-Oct-2017
  * Last Modified By: Ha Jin Song
  */
 
@@ -18,6 +18,7 @@ import Style from './Style';
 import { NavButton } from '../Common/Button';
 
 import MapActions from '../../Action/Map';
+import EventActions from '../../Action/Event';
 
 const accessToken = 'pk.eyJ1IjoibXNrazBubm5ubiIsImEiOiJjajRjcHhyOGIwY3QzMzNydHF3MjZwZHNlIn0.-lD6Qmj7oExfr4XdU2kiYQ';
 Mapbox.setAccessToken(accessToken);
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
    dispatch({ 'type': MapActions.UPDATE_COORDINATE, 'coordinate': {longitude, latitude }});
   },
   loadEvents: (events) => {
-   dispatch({ 'type': EventsAction.LOAD_EVENTS, 'events': events });
+   dispatch({ 'type': EventActions.LOAD_EVENTS, 'events': events });
   }
  });
 }
@@ -51,6 +52,11 @@ class Map extends Component {
   this.__getEvents = this.__getEvents.bind(this);
  }
 
+ /**
+  * __getEvents : void
+  * Get Events using device's current longitude, latitude
+  * Update the annotation object being used by the MapView
+  */
  __getEvents(){
   let formBody = jsonToURLForm( { longitude: this.state.center.longitude, latitude: this.state.center.latitude } );
   fetch('http://eventchat.azurewebsites.net/api/Events/index?'+ formBody,{
@@ -66,6 +72,7 @@ class Map extends Component {
     this.props.screenProps.onMessage('error', 'Failed to retrieve Event List!');
     return;
    }
+   this.props.loadEvents(res);
    this.setState({
     annotations: res.map( (evt) => {
      return {
@@ -77,12 +84,17 @@ class Map extends Component {
      }
     })
    });
-   console.log(this.state);
   }).catch( (err) => {
    console.log(err);
    this.props.screenProps.onMessage('error', 'Failed to retrieve Event List!');
   })
  }
+
+ /**
+  * __updateCoordinate : void
+  * Update the Map, including the annotation (markers) displayed
+  * @param  {Object} geoResult Result of GeoService
+  */
  __updateCoordinate(geoResult){
   let longitude = geoResult.coords.longitude;
   let latitude = geoResult.coords.latitude;
@@ -92,6 +104,7 @@ class Map extends Component {
   this.__getEvents();
  }
  componentWillMount() {
+  // Add listener for geolocation service
   navigator.geolocation.getCurrentPosition( (pos) => {
    this.__updateCoordinate(pos);
   }, (err) => {
@@ -102,6 +115,7 @@ class Map extends Component {
   });
  }
  componentWillUnmount(){
+  // Remove listener for geoLocation service
   navigator.geolocation.clearWatch(this.watchID);
  }
  render(){

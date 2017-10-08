@@ -20,17 +20,17 @@ export default class EventList extends Component{
  render(){
   return(
    <TouchableHighlight onPress={() => this.props.navigation.navigate("Event")}>
-    <View key={item.EventID}>
+    <View key={this.props.item.EventID}>
      <View>
-      <Text style={styles.title}>{item.Name}</Text>
-      <Text style={styles.date}>{item.Location}</Text>
-      <Text style={styles.date}>{item.Date}</Text>
-      <Text style={styles.details}>{item.Details}</Text>
+      <Text style={styles.title}>{this.props.item.Name}</Text>
+      <Text style={styles.date}>{this.props.item.Latitude},{this.props.item.Longitude}</Text>
+      <Text style={styles.date}>{this.props.item.Date}</Text>
+      <Text style={styles.details}>{this.props.item.Details}</Text>
      </View>
-     <Image  style={{width:'100%',height:250, marginBottom:5}} source = {{uri:item.Image}} />
+     <Image  style={{width:'100%',height:250, marginBottom:5}} source = {{uri:''}} />
      <EvilIcons name ='comment' size={30}  />
      <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-      <Comments />
+      <Comments comments={this.props.item.comments}/>
      </List>
      <Text> {'\n'} </Text>
     </View>

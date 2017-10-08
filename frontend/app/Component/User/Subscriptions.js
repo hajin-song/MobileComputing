@@ -1,3 +1,12 @@
+/**
+ * Subscriptions.js
+ * View for User Subscriptions Page
+ * Created On: 08-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 08-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SectionList, View } from 'react-native';

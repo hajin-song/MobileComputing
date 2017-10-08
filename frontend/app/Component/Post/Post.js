@@ -14,8 +14,6 @@ import { connect } from 'react-redux';
 import Style from './Style';
 import { ActionButton } from '../Common/Button';
 import EventActions from '../../Action/Event';
-import Camera from 'react-native-camera';
-import RNFS from 'react-native-fs'
 import styles from './../../Style/Standard.js'
 import { jsonToURLForm } from '../../Tool/DataFormat';
 
@@ -36,95 +34,48 @@ const mapDispatchToProps = (dispatch) => {
 class Post extends Component {
   constructor(props){
     super(props);
-    this.state = { title: '', content: '', base64:null}
+    this.state = { title: '', content: '' }
     this.__post = this.__post.bind(this);
-
   }
 
-
-  __post(token, coordinate){
-    RNFS.readFile(this.state.path.substring(7), "base64").then((res) => this.setState(base64format: res,coordinate: coordinate, token: token, title:'userid_image.jpg', type: 'image/jpg'))
-    let formBody = jsonToURLForm(Object.assign({}, this.state));
-    fetch('http://eventchat.azurewebsites.net/post',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: formBody
-    }).then( (res) => {
-      return res.json();
-    }).catch( (err) => {
-      console.log(err);
-    });
-
-
-  }
-  renderCamera() {
-    return (
-      <Camera
-      ref={(cam) => {
-        this.camera = cam;
-      }}
-      style={styles.preview}
-      aspect={Camera.constants.Aspect.fill}
-      captureTarget={Camera.constants.CaptureTarget.disk}
-      >
-      <TouchableHighlight
-      style={styles.capture}
-      onPress={this.takePicture.bind(this)}
-      underlayColor="rgba(255, 255, 255, 0.5)"
-      >
-      <View />
-      </TouchableHighlight>
-      </Camera>
-
-    );
-  }
-
-  renderImage() {
-    return (
-      <View>
-      <Image source={{ uri: this.state.path }}   style={styles.preview}   />
-      <Text   style={styles.cancel}     onPress={() => this.setState({ path: null })}   >Cancel</Text>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <View style={Style.cameracontainer}>
-      {this.state.path ? this.renderImage() : this.renderCamera()}
-      <View style={Style.cameraContainer}>
-      <TextInput
-      placeholder = "What's on?"
-      style={Style.title}
-      onChangeText={ (title) => this.setState({title}) }
-      value={this.state.title}
-      />
-      <TextInput
-      placeholder = "Tell the world more details..."
-      multiline = {true}
-      style={Style.input}
-      onChangeText={ (content) => this.setState({content})}
-      value={this.state.text}
-      />
-      <ActionButton title="Pin it" onPress = {() => this.__post(this.props.token, this.props.coordinate)} />
-      </View>
-      </View>
-    );
-  }
+ __post(){
+  let formBody = jsonToURLForm(Object.assign({}, this.state, this.props.coordinate));
+  fetch('http://eventchat.azurewebsites.net/post',{
+   method: 'POST',
+   headers: {
+     'Accept': 'application/json',
+     'Content-Type': 'application/x-www-form-urlencoded',
+     'Authorize': this.props.token
+   },
+   body: formBody
+  }).then( (res) => {
+   return res.json();
+  }).catch( (err) => {
+   console.log(err);
+  });
+ }
 
 
-  takePicture() {
-    this.camera.capture()
-    .then((data) => {
-      console.log(data);
-      this.setState({ path: data.path })
-    })
-    .catch(err => console.error(err));
-  }
-
+ render() {
+  return (
+   <View style={Style.cameracontainer}>
+    <TextInput
+    placeholder = "What's on?"
+    style={Style.title}
+    onChangeText={ (title) => this.setState({title})}
+    value={this.state.title}
+    />
+    <TextInput
+    placeholder = "Tell the world more details..."
+    multiline = {true}
+    style={Style.input}
+    onChangeText={ (content) => this.setState({content})}
+    value={this.state.text}
+    />
+    <ActionButton title="Pin it" onPress = {() => this.__post()} />
+   </View>
+  );
+ }
 }
 
 

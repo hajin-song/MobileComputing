@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using eventchat.DAL;
 using eventchat.Models;
 using System.Device.Location;
+using eventchat.Models.Wrappers;
 
 namespace eventchat.Controllers
 {
@@ -40,84 +41,32 @@ namespace eventchat.Controllers
             return result;
         }
 
-        // GET: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult GetEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(@event);
-        }
-
-        // PUT: api/Events/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutEvent(int id, Event @event)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != @event.EventID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(@event).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EventExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
         // POST: api/Events
+        [Route("index")]
         [ResponseType(typeof(Event))]
-        public IHttpActionResult PostEvent(Event @event)
+        public IHttpActionResult PostEvent(EventPost evt)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                User user = db.Users.FirstOrDefault(x => x.UserName.Equals(evt.UserName));
+                if(user == null)
+                {
+                    return BadRequest("Invalid Username!");
+                }
+                Event dbEvent = new Event { Name = evt.Name, Detail = evt.Detail, Latitude = evt.Latitude, Longitude = evt.Longitude, user = user, Date = DateTime.Now };
+                db.Entry(dbEvent).State = EntityState.Added;
+
+                db.Events.Add(dbEvent);
+                db.SaveChanges();
+
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest("Event Could not be saved!");
             }
-
-            db.Events.Add(@event);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = @event.EventID }, @event);
         }
 
-        // DELETE: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult DeleteEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            db.Events.Remove(@event);
-            db.SaveChanges();
-
-            return Ok(@event);
-        }
 
         protected override void Dispose(bool disposing)
         {

@@ -19,8 +19,9 @@ export default EventList = ({ item, navigation, onPress }) => {
  //Comments List within each event post.
  return(
   <TouchableHighlight onPress={() => {
+   console.log('NOT IMPLEMENTED! - Comment on Event');
    onPress(item);
-   navigation.navigate("EventShow");
+   //navigation.navigate("EventShow");
   }}>
    <View key={item.EventID}>
     <View>

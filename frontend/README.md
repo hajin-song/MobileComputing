@@ -18,3 +18,6 @@
 * Authority Scrapper from Twitter - This was considered as extension
 * Commenting on Event
 * Image Handling - Camera on development Emulator was quite fiddly and difficult to debug the issue.
+
+## KNOWN ISSUES
+* For some reason, git is tracking two copy of same file (Component/Auth/Register) - with different casing. If this happens, rename the file to use Capital first letter.

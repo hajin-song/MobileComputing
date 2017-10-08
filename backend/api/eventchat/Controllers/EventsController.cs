@@ -12,6 +12,7 @@ using eventchat.DAL;
 using eventchat.Models;
 using System.Device.Location;
 using eventchat.Models.Wrappers;
+using Newtonsoft.Json;
 
 namespace eventchat.Controllers
 {
@@ -43,7 +44,8 @@ namespace eventchat.Controllers
 
 
         // POST: api/Events
-        [Route("index")]
+        [HttpPost]
+        [Route("post")]
         [ResponseType(typeof(Event))]
         public IHttpActionResult PostEvent(EventPost evt)
         {
@@ -60,10 +62,10 @@ namespace eventchat.Controllers
                 db.Events.Add(dbEvent);
                 db.SaveChanges();
 
-                return Ok();
+                return Ok(JsonConvert.SerializeObject(dbEvent));
             }catch(Exception e)
             {
-                return BadRequest("Event Could not be saved!");
+                return BadRequest(e.Message);
             }
         }
 

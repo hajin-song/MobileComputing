@@ -17,7 +17,8 @@ const initialState = {
 const EventReducer = (state=initialState, action) => {
  switch(action.type){
   case EventsAction.CREATE_EVENT:
-   return state;
+   console.log( [...state.events, action.event]);
+   return Object.assign({}, state, { events: [...state.events, action.event] });;
   case EventsAction.LOAD_EVENTS:
    return Object.assign({}, state, { events: action.events });
   case EventsAction.SELECT_EVENT:

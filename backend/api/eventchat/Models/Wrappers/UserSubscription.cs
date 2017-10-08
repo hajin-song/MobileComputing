@@ -5,6 +5,9 @@ using System.Web;
 
 namespace eventchat.Models.Wrappers
 {
+    /// <summary>
+    /// Wrapper for User object during POST request dealing with the subscription
+    /// </summary>
     public class UserSubscription
     {
         public string UserName { get; set; }

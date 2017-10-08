@@ -6,6 +6,9 @@ using System.Web;
 
 namespace eventchat.Models.Wrappers
 {
+    /// <summary>
+    /// Wrapper for User object during POST request
+    /// </summary>
     public class UserPost
     {
         public string UserName { get; set; }

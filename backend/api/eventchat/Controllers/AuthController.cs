@@ -1,17 +1,10 @@
-﻿using eventchat.DAL;
-using eventchat.Models;
-using eventchat.Models.Wrappers;
+﻿using eventchat.Models;
 using eventchat.Models.Repository;
+using eventchat.Models.Wrappers;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Data.SqlTypes;
 
 namespace eventchat.Controllers
 {
@@ -27,18 +20,25 @@ namespace eventchat.Controllers
 
         [AllowAnonymous]
         [Route("Register")]
+        /// Register : Task<IHttpActionResult>
+        /// Register a new user
+        /// Uses Wrapper Object to take advantage of WebAPI's object mapping behaviour
+        /// <param name="user">User Information</param>
+        /// <returns type="Task<IHttpActionResult>">HTTP Request Result with message on error (async)</returns>
         public async Task<IHttpActionResult> Register(UserPost user)
         {
  
-            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today };
-            if (!ModelState.IsValid) { return BadRequest(ModelState); }
-
+            User dbUser = new Models.User {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.Password,
+                Address = user.Address,
+                DateOfBirth = DateTime.Today
+            };
             IdentityResult result = await repo.Register(dbUser);
             IHttpActionResult errResult = GetErrorResult(result);
-            if (errResult != null)
-            {
-                return errResult;
-            }
+            if (errResult != null) { return errResult; }
             return Ok();
  
         }
@@ -52,6 +52,10 @@ namespace eventchat.Controllers
             base.Dispose(disposing);
         }
 
+        /// GetErrorResult : Task<IHttpActionResult>
+        /// Get any error resulting from Authentication request
+        /// <param name="result">Auth Result</param>
+        /// <returns type="Task<IHttpActionResult>">HTTP Request Result with message on error (async)</returns>
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if(result == null) { return InternalServerError();  }

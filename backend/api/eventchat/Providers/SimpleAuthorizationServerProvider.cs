@@ -59,6 +59,12 @@ namespace eventchat.Providers
             return Task.FromResult<object>(null);
         }
 
+        /// <summary>
+        /// getUserProperties : AuthenticationProperties
+        /// Loads the user information into response once authenticated
+        /// </summary>
+        /// <param name="user">User authenticated</param>
+        /// <returns>AuthenticationProperties containing User information</returns>
         private AuthenticationProperties getUserProperties(User user)
         {
             AuthenticationProperties props = new AuthenticationProperties(new Dictionary<string, string>());

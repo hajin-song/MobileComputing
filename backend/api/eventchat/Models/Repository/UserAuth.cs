@@ -2,15 +2,15 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Data.Entity;
 
 namespace eventchat.Models.Repository
 {
+    /// <summary>
+    /// Override UserManager to use Custom User model
+    /// </summary>
     public class CustomManager : UserManager<User>
     {
         EventChatContext db;
@@ -20,11 +20,13 @@ namespace eventchat.Models.Repository
             this.db = db;    
         }
 
+        // Override - we are not salting the password at this stage of development
         public override Task<User> FindAsync(string userName, string password)
         {
             return db.Users.Where(x => x.UserName.Equals(userName) && x.Password.Equals(password)).FirstOrDefaultAsync();
         }
     }
+
     public class UserAuthRepository : IDisposable
     {
         private EventChatContext db;
@@ -50,7 +52,6 @@ namespace eventchat.Models.Repository
 
         public void Dispose()
         {
-        
             manager.Dispose();
             db.Dispose();
         }

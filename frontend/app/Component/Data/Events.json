@@ -1,0 +1,73 @@
+[
+{
+    "ID"   : 1,
+    "Source"    : 2,
+    "Name" : "Hail Alert",
+    "EventType" : 1,
+    "Image"     : "http://www.abc.net.au/news/image/4273088-3x2-940x627.jpg",
+    "Location"  :"Carlton, Melbourne",
+    "Coords"  : [[-126.562500,45.089036], [-123.750000,47.040182]] ,
+    "Details"   : "First spotted in...... some more details.",
+    "Date"        : "20/09/2017 16:34:51",
+
+    "Comments"  : [{"ID" : 1,
+   "CommenterID" : 1,
+   "EventID" : 1,
+   "IsAnonymous" : "false",
+   "Comment"     : "I'm inside the store I've never seen hail this big.",
+   "Date"        : "20/09/2017 16:34:51",
+   "Image"       : "uri"
+
+  },
+  {"ID" : 2,
+   "CommenterID" : 1,
+   "EventID" : 2,
+   "IsAnonymous" : "false",
+   "Comment"     : "Another dummy comment.",
+   "Date"        : "20/09/2017 16:34:51",
+   "Image"       : "uri"
+
+  },
+  {"ID" : 3,
+   "CommenterID" : 1,
+   "EventID" : 2,
+   "IsAnonymous" : "false",
+   "Comment"     : "Third dummy comment.",
+   "Date"        : "20/09/2017 16:34:51",
+   "Image"       : "uri"
+
+  }
+]
+
+
+},
+
+{
+    "EventID"   : 2,
+    "Source"    : 2,
+    "Name" : "Some other event",
+    "EventType" : 1,
+    "Image"     : "./images/379242.png",
+    "Location"  :"Carlton, Melbourne",
+    "Coords"  : [[-126.562500,45.089036], [-123.750000,47.040182]] ,
+    "Details"   : "First spotted in...... some more details.",
+    "Date"        : "20/09/2017 16:34:51",
+"Comments"  : []
+
+
+},
+{
+    "EventID"   : 3,
+    "Source"    : 3,
+    "Name" : "Third event",
+    "EventType" : 1,
+    "Image"     : "./images/379242.png",
+    "Location"  : "CBD, Melbourne, Victoria",
+    "Coords"    : [[-126.562500,45.089036], [-123.750000,47.040182]] ,
+    "Details"   : "First spotted in...... some more details.",
+    "Date"        : "20/09/2017 16:34:51",
+"Comments"  : []
+
+
+}
+]

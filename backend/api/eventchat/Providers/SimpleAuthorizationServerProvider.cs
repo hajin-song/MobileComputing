@@ -1,6 +1,11 @@
-﻿using eventchat.Models.Repository;
+﻿using eventchat.DAL;
+using eventchat.Models;
+using eventchat.Models.Repository;
+using eventchat.Models.Wrappers;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +28,55 @@ namespace eventchat.Providers
         {
             // Allow CORS
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
+            User user;
             // Does username and password combination match?
             using (UserAuthRepository repo = new UserAuthRepository())
             {
-                IdentityUser identUser = await repo.Find(context.UserName, context.Password);
-
-                if(identUser == null)
+                user = await repo.Find(context.UserName, context.Password);
+                if (user == null)
                 {
                     context.SetError("Invalid Credential", "The Username or Password is incorrect");
                     return;
                 }
             }
-
-            // Set Token
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+           
+            ClaimsIdentity identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
 
-            context.Validated(identity);
+            AuthenticationProperties props = getUserProperties(user);
+            AuthenticationTicket ticket = new AuthenticationTicket(identity, props);
+            context.Validated(ticket);
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+
+            return Task.FromResult<object>(null);
+        }
+
+        private AuthenticationProperties getUserProperties(User user)
+        {
+            AuthenticationProperties props = new AuthenticationProperties(new Dictionary<string, string>());
+            props.Dictionary.Add("firstName", user.FirstName);
+            props.Dictionary.Add("lastName", user.LastName);
+            props.Dictionary.Add("address", user.Address);
+            props.Dictionary.Add("userID", user.Id);
+            props.Dictionary.Add("dataOfBirth", user.DateOfBirth.ToShortDateString());
+            props.Dictionary.Add("userName", user.UserName);
+            using (EventChatContext db = new EventChatContext())
+            {
+                List<UserSubscription> userSubscriptions = db.Subscriptions.
+                    Where(x => x.subscribedUser.UserName.Equals(user.UserName)).
+                    Select(x => new UserSubscription { UserName=user.UserName, targetUserName=x.subscriptionUser.UserName }).
+                    ToList();
+                props.Dictionary.Add("subscriptions", JsonConvert.SerializeObject(userSubscriptions));
+            }
+            return props;
         }
     }
 }

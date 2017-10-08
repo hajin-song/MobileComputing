@@ -6,6 +6,7 @@ using Owin;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using eventchat.Providers;
+using System.Data.Entity.Migrations;
 
 // Thie states that the class will run on start
 [assembly: OwinStartup(typeof(eventchat.Startup))]
@@ -27,6 +28,10 @@ namespace eventchat
             app.UseWebApi(config);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            var configuration = new Migrations.Configuration();
+            var migrator = new DbMigrator(configuration);
+            migrator.Update();
         }
 
         public void ConfigureOAuth(IAppBuilder app)

@@ -1,5 +1,6 @@
 ﻿using eventchat.DAL;
 using eventchat.Models;
+using eventchat.Models.Wrappers;
 using eventchat.Models.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.SqlTypes;
 
 namespace eventchat.Controllers
 {
@@ -25,16 +27,20 @@ namespace eventchat.Controllers
 
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(User user)
+        public async Task<IHttpActionResult> Register(UserPost user)
         {
-            IdentityUser identUser = new IdentityUser{ UserName = user.UserName };
-
+ 
+            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today };
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            var newUser = await repo.Register(user);
-            IHttpActionResult err = GetErrorResult(newUser);
-            if(err != null) { return err; }
+            IdentityResult result = await repo.Register(dbUser);
+            IHttpActionResult errResult = GetErrorResult(result);
+            if (errResult != null)
+            {
+                return errResult;
+            }
             return Ok();
+ 
         }
 
         protected override void Dispose(bool disposing)

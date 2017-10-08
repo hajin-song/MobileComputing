@@ -1,0 +1,11 @@
+{
+    "ID"   : 379242,
+    "Source"    : 2,
+    "Name" : "Hail Alert",
+    "EventType" : 1,
+    "Image"     : "http://www.abc.net.au/news/image/4273088-3x2-940x627.jpg",
+    "Location"  : [[-126.562500,45.089036], [-123.750000,47.040182]] ,
+    "Details"   : "First spotted in...... some more details."
+
+
+}

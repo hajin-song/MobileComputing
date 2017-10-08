@@ -9,8 +9,8 @@ namespace eventchat.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "eventchat.DAL.EventChatContext";
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(eventchat.DAL.EventChatContext context)

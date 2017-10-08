@@ -12,6 +12,7 @@ using eventchat.DAL;
 using eventchat.Models;
 using eventchat.Models.Wrappers;
 
+// UN-IMPLEMENTED PART OF THE APPLICATION
 namespace eventchat.Controllers
 {
     [RoutePrefix("api/comments")]

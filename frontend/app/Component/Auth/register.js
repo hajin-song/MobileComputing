@@ -17,13 +17,15 @@ import { jsonToURLForm } from '../../Tool/DataFormat';
 class Register extends Component{
  constructor(props){
   super(props);
+  // We didn't want to focus on this part as these information werent being
+  // used in the critical part of our application - set to random default values for now
   this.state = {
    Username: 'tester123',
    Password: 'qwerty',
    ConfirmPassword: 'qwerty',
    FirstName: 'empty',
    LastName: 'headed',
-   Address: '120 Scholar Street',
+   Address: '120 Scholar Street', // TODO - Use geocoder
    actionTriggered: false,
   }
   this.__register = this.__register.bind(this);

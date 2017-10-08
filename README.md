@@ -7,9 +7,9 @@
 ##Brief
 *Fit to the brief: Does it address the brief in a creative way? Does it fulfil a real need, solve a real problem or explore a real opportunity? Is it supporting active decision-making? Is the application likely to lead to a safer future? Fully addresses a major safety- related problem with a substantially innovative solution. Solution has commercial or research potential.*   
 
- People rely on different sources for urgent news, but typically it's by word-of-mouth. Natural hazards, mass shootings, and building fires are all such news that are usually known by interaction with people. 
+ People rely on different sources for urgent news, but typically it's by word-of-mouth. Natural hazards, mass shootings, and building fires are all such news that are usually known by interaction with people.
 
-According to Sensis' social media survey in 2016, Social media 
+According to Sensis' social media survey in 2016, Social media
 
 In an emergency, p
 
@@ -20,7 +20,7 @@ Our focus was to address the enhancement of emergency awareness.
 
 
 ###Process
-Because the problem space is undefined by a certain location or lifestyle, and due to the sporadic nature of urgent news, methods like ethnographies did not fit our research process. 
+Because the problem space is undefined by a certain location or lifestyle, and due to the sporadic nature of urgent news, methods like ethnographies did not fit our research process.
 
 ####Interviews
 
@@ -83,7 +83,7 @@ So we are building an application that will pull those data into single place + 
 
 ##Usability Testing
 ###Three Levels of Design
-####Visceral 
+####Visceral
 Emotional impact
 
 ####Behavioural
@@ -92,9 +92,9 @@ Emotional impact
  
 ##Features
 ###Sensors
-GPS for map pinning 
+GPS for map pinning
 Camera for posts
--  Cloud: does it make creative use of the cloud infrastructure?  Sensors: does it make creative use of the sensors available in the device? 
+-  Cloud: does it make creative use of the cloud infrastructure?  Sensors: does it make creative use of the sensors available in the device?
 
 ###Cloud Usage
 Database of scraped processed data

@@ -6,7 +6,7 @@
 * 4- renderFooter: Renders an activity indicator if list is loading.
 * 5- renderSeparator: Renders the line seperator of list elements.
 */
-
+// NOT IMPLEMENTED!
 import React, { Component } from "react";
 import {Alert,Image,Button,FlatList,TextInput,ActivityIndicator,TouchableHighlight,AsyncStorage,Text,View} from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";

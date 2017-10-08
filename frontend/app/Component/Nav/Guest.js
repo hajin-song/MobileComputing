@@ -11,9 +11,9 @@ import React from "react";
 
 import { TabNavigator } from "react-navigation";
 
-import Login from '../Auth/SignIn.js';
+import Login from '../Auth/SignIn';
 import Register from '../Auth/Register';
-import Main from '../Map/MapView.js';
+import Main from '../Map/MapView';
 
 import { NavStyle } from './Style';
 

@@ -14,16 +14,6 @@ tweet harvester ==> stream ==> preprocessor ==> detection component ==> topicske
 
 This is a Python implementation of Twitter Streaming API for downloading tweets in real-time. Tweets are inserted into a DocumentDB database in Azure Cosmos DB.
 
-#### Prerequisites
-
-Python 2.7.10
-
-tweepy
-
-pydocumentdb
-
-json
-
 #### Running the program
 
 python2 harvester.py \<config\> \<mode\> \<auth_index\>
@@ -43,9 +33,10 @@ Put stop words in twitter-stopwords.txt. Define your own stop words file accordi
 
 ### Parameters
 
-Set parameters in file "parameters.cnf".
-
-#### Detection Threshold
+Set parameters in file "parameters.cnf". We might tune detection_threshold to get better detection precision.
 
 ## Running the Program
+
 python2 harvester.py config.json stream 0
+python2 main.py
+

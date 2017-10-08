@@ -14,6 +14,6 @@
 * Camera (REMOVED AT CURRENT VERSION)
 
 ## UNIMPLEMENTED FEATURES
-* Authority Scrapper from Twitter
+* Authority Scrapper from Twitter - This was considered as extension
 * Commenting on Event
-* Image Handling
+* Image Handling - Camera on development Emulator was quite fiddly and difficult to debug the issue.

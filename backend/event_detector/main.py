@@ -1,7 +1,6 @@
 from topicsketch import topic_sketch as ts, preprocessor, stream as ts_stream
 from experiment import tweet_stream, detection
 
-
 def main():
 
     stream = tweet_stream.TweetStreamFromDB()

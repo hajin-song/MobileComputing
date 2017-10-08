@@ -3,15 +3,14 @@
  * View for Register Page
  * Created On: 29-Sept-2017
  * Created By: Ha Jin Song
- * Last Modified On: 29-Spet-2017
+ * Last Modified On: 07-Oct-2017
  * Last Modified By: Ha Jin Song
  */
 import React, { Component } from "react";
 import { View } from "react-native";
-
 import { Card } from "react-native-elements";
 import { FormField, FormFieldPassword } from '../Common/FormField';
-import { NavButton } from '../Common/Button';
+import { ActionButton } from '../Common/Button';
 
 import { jsonToURLForm } from '../../Tool/DataFormat';
 
@@ -19,14 +18,24 @@ class Register extends Component{
  constructor(props){
   super(props);
   this.state = {
-   Username: '',
-   Password: '',
-   ConfirmPassword: ''
+   Username: 'tester123',
+   Password: 'qwerty',
+   ConfirmPassword: 'qwerty',
+   FirstName: 'empty',
+   LastName: 'headed',
+   Address: '120 Scholar Street',
+   actionTriggered: false,
   }
   this.__register = this.__register.bind(this);
  }
 
+ /**
+  * __register : void
+  * Register a new user using information in the state
+  */
  __register(){
+  // Prevent duplicate actions
+  this.setState({actionTriggered: true });
   let formBody = jsonToURLForm(this.state);
   fetch('http://eventchat.azurewebsites.net/api/auth/register/', {
    method: 'POST',
@@ -36,11 +45,20 @@ class Register extends Component{
    },
    body: formBody
   }).then( (res) => {
-   this.props.navigation.navigate("Login");
+   if(typeof(res.error) !== 'undefined'){
+    this.props.screenProps.onMessage('error', 'Registration Failed!');
+    this.setState({actionTriggered: false });
+    return;
+   }
+   this.props.screenProps.onMessage('success', 'Registration Complete!');
+   this.props.navigation.navigate("Sign In");
+   this.setState({actionTriggered: false });
   }).catch( (err) => {
-    console.log(err);
+   this.props.screenProps.onMessage('error', 'Registration Failed!');
+   this.setState({actionTriggered: false });
   });
  }
+
  render(){
   return (
    <View style={{ paddingVertical: 20 }}>
@@ -63,7 +81,7 @@ class Register extends Component{
        placeholder="Confirm Password"
        onChange={ConfirmPassword => this.setState({ConfirmPassword})}
       />
-      <NavButton title="Register" onPress={ () => this.__register() } />
+      <ActionButton title="Register" onPress={ () => this.__register() } disabled={this.state.actionTriggered} />
      </Card>
    </View>
   )

@@ -73,6 +73,7 @@ class Map extends Component {
     return;
    }
    this.props.loadEvents(res);
+   console.log(res);
    this.setState({
     annotations: res.map( (evt) => {
      return {

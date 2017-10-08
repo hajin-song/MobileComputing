@@ -1,3 +1,12 @@
+/**
+ * Show.js
+ * View for Event Show - Main
+ * Created On: 08-Oct-2017
+ * Created By: Ha Jin Song
+ * Last Modified On: 08-Oct-2017
+ * Last Modified By: Ha Jin Song
+ */
+
 import React,{Component} from 'react'
 import { FlatList, View, Text} from 'react-native'
 import { List, ListItem } from "react-native-elements";

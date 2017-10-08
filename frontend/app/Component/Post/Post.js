@@ -7,6 +7,8 @@
 * Last Modified By: Ha Jin Song
 */
 
+// TODO - Readd Camera to allow photo to be sent as base64 string
+
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { View, TextInput ,Text } from "react-native";

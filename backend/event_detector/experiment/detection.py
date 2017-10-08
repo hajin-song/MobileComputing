@@ -141,8 +141,6 @@ class DetectionComponent(ts_stream.ItemStream):
         sig_instance, sig_list = self.processor.process(ptweet)
         if sig_instance is not None:
             output = self.process(sig_instance, sig_list)
-            print('op: ')
-            print(output)
             if eval(exp_config.get('output', 'debug_info')):
                 print sig_instance
             return ptweet, output

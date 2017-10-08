@@ -1,3 +1,6 @@
+"""
+MSSQL Connector that inserts detected event into the Event table in MSSQL.
+"""
 import pyodbc
 
 SQL = "INSERT into Event (Source, Date, Name, Detail, Latitude, Longitude) values (?, ?, ?, ?, ?, ?)"

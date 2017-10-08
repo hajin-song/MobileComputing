@@ -16,10 +16,22 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { StackNavigator } from 'react-navigation';
 import styles from './../../Style/Standard.js'
 
+import EventList from './Index/List';
+
 export default class Event extends Component{
+ //Comments List within each event post.
  render(){
   return(
-   <View></View>
+   <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+    <FlatList
+     data={[]}
+     renderItem={({ item }) => <EventList />}
+     keyExtractor={item => item.EventID}
+     onRefresh={this.handleRefresh}
+     onEndReached={this.handleLoadMore}
+     onEndReachedThreshold={50}
+    />
+   </List>
   );
  }
 }

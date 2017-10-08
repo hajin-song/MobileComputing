@@ -26,7 +26,6 @@ class Profile extends Component{
   var user = this.props.user;
   var subscriptions = this.props.subscriptions;
   var navigation = this.props.navigation;
-  console.log(user, subscriptions, navigation);
   return (
    <View>
     <View style={[styles.row]}>

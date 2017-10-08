@@ -10,17 +10,34 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using eventchat.DAL;
 using eventchat.Models;
+using System.Device.Location;
 
 namespace eventchat.Controllers
 {
+    [RoutePrefix("api/events")]
+    [Authorize]
     public class EventsController : ApiController
     {
         private EventChatContext db = new EventChatContext();
 
-        // GET: api/Events
-        public IQueryable<Event> GetEvents()
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("index")]
+        public List<Event> GetEvents(string longitude, string latitude)
         {
-            return db.Events;
+            List<Event> result = new List<Event>();
+            
+            var events = db.Events.Include("images").Include("user").Include("type").ToList();
+            GeoCoordinate centre = new GeoCoordinate(double.Parse(latitude), double.Parse(longitude));
+            foreach(Event evt in events)
+            {
+                GeoCoordinate cur = new GeoCoordinate(evt.Latitude, evt.Longitude);
+                if(centre.GetDistanceTo(cur) <= 20)
+                {
+                    result.Add(evt);
+                }
+            }
+            return result;
         }
 
         // GET: api/Events/5

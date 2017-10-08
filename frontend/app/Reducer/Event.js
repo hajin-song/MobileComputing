@@ -10,7 +10,7 @@
 import EventsAction from '../Action/Event';
 
 const initialState = {
- title: '', content: ''
+ events: []
 }
 
 const EventReducer = (state=initialState, action) => {
@@ -18,6 +18,8 @@ const EventReducer = (state=initialState, action) => {
   case EventsAction.CREATE_EVENT:
    console.log(action);
    return state;
+  case EventsAction.LOAD_EVENTS:
+   return Object.assign({}, state, { events: action.events });
   default:
    return state;
  }

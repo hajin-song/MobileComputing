@@ -11,6 +11,7 @@ import React, {Component } from 'react';
 import Mapbox, { MapView } from 'react-native-mapbox-gl';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import { jsonToURLForm } from '../../Tool/DataFormat';
 
 import Style from './Style';
 
@@ -23,7 +24,7 @@ Mapbox.setAccessToken(accessToken);
 
 const mapStateToProps = (state) => {
  return {
-
+  token: state.Session.token
  }
 };
 
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
  return ({
   setCoordinates: (longitude, latitude) => {
    dispatch({ 'type': MapActions.UPDATE_COORDINATE, 'coordinate': {longitude, latitude }});
+  },
+  loadEvents: (events) => {
+   dispatch({ 'type': EventsAction.LOAD_EVENTS, 'events': events });
   }
  });
 }
@@ -40,9 +44,44 @@ class Map extends Component {
   super(props);
   this.state = {
    zoom: 11,
-   userTrackingMode: Mapbox.userTrackingMode.none
+   userTrackingMode: Mapbox.userTrackingMode.none,
+   annotations: []
   }
   this.__updateCoordinate = this.__updateCoordinate.bind(this);
+  this.__getEvents = this.__getEvents.bind(this);
+ }
+
+ __getEvents(){
+  let formBody = jsonToURLForm( { longitude: this.state.center.longitude, latitude: this.state.center.latitude } );
+  fetch('http://eventchat.azurewebsites.net/api/Events/index?'+ formBody,{
+   'method': 'GET',
+   headers: {
+    'Accept': 'application/json',
+    'Authorization': this.props.token
+   }
+  }).then( (res) => {
+   return res.json();
+  }).then( (res) => {
+   if(typeof(res.error) !== 'undefined'){
+    this.props.screenProps.onMessage('error', 'Failed to retrieve Event List!');
+    return;
+   }
+   this.setState({
+    annotations: res.map( (evt) => {
+     return {
+      coordinates:[evt.Latitude, evt.Longitude],
+      type: 'point',
+      title: evt.Name,
+      subtitle: evt.Detail,
+      id: evt.EventID.toString()
+     }
+    })
+   });
+   console.log(this.state);
+  }).catch( (err) => {
+   console.log(err);
+   this.props.screenProps.onMessage('error', 'Failed to retrieve Event List!');
+  })
  }
  __updateCoordinate(geoResult){
   let longitude = geoResult.coords.longitude;
@@ -50,10 +89,10 @@ class Map extends Component {
   this.props.setCoordinates(longitude, latitude);
   this.state.center = { longitude, latitude }
   this._map.setCenterCoordinateZoomLevel(latitude, longitude, this.state.zoom, false);
+  this.__getEvents();
  }
  componentWillMount() {
   navigator.geolocation.getCurrentPosition( (pos) => {
-   console.log(pos);
    this.__updateCoordinate(pos);
   }, (err) => {
    console.log(err);
@@ -71,6 +110,7 @@ class Map extends Component {
     <MapView
      style={Style.map}
      ref={map => {this._map = map; }}
+     annotations={this.state.annotations}
      initialCenterCoordinate={this.state.center}
      initialZoomLevel={this.state.zoom}
      initialDirection={0}

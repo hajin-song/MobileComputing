@@ -8,6 +8,8 @@
  */
 
 const CREATE_EVENT = 'CREATE_EVENT';
+const LOAD_EVENTS = 'LOAD_EVENTS';
 export default {
- CREATE_EVENT
+ CREATE_EVENT,
+ LOAD_EVENTS
 };

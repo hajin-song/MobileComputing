@@ -20,9 +20,8 @@ import UserShow from '../User/Show';
 import Subscriptions from '../User/Subscriptions.js';
 import UserView from '../User/UserView.js';
 
-import Events from '../Event/Events.js';
+import EventList from '../Event/Index.js';
 import EventMap from '../Map/MapView.js';
-import Event from '../Event/Event.js';
 import Post from '../Post/Post.js';
 
 import Explore from '../Explore/Explore.js';
@@ -33,19 +32,13 @@ import { NavStyle } from './Style';
 // ===================== Navigation Components ========================== //
 let eventsNav = {
   screen: StackNavigator({
-    Events: {
-      screen: Events,
+    EventList: {
+      screen: EventList,
       navigationOptions: ({navigation}) => ({
         title: "Events",
         headerStyle: { paddingRight: 10, paddingLeft: 10 }
       })
     },
-    Event: {
-      screen: Event,
-      navigationOptions: (props) => ({
-        title: "",
-      })
-    }
   }),
   navigationOptions: {
     showLabel: 'false',

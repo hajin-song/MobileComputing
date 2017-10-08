@@ -1,45 +1,90 @@
 import React, { Component } from 'react';
-import { SectionList,TouchableHighlight, Button, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { SectionList, View } from 'react-native';
 import styles  from './../../Style/Standard.js'
 
-//data imports, delete later
-import friendssubscriptions from './../Data/friendsList.json'
-import authoritysubscriptions from './../Data/authorityList.json'
+import Header from './Subscription/Header';
+import List from './Subscription/List';
 
-export default class Subscriptions extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-      <SectionList
-      sections={[
-        {title: 'Authorities', data: authoritysubscriptions},
-        {title: 'Friends', data: friendssubscriptions},
-      ]}
-      renderSectionHeader={({section}) =>
-      <View  >
-      <Text style={styles.sectionHeader}>{section.title}</Text>
+import UserActions from '../../Action/User';
 
-      </View> }
-      renderItem={({item}) =>
-      <View>
-      <View  key={item.ID} style={styles.row}>
-      <View   style={styles.box}>
-      <TouchableHighlight onPress={() => this.props.navigation.navigate("UserView")}>
-      <Text style={styles.sectionItem}>{item.Name}</Text>
-      </TouchableHighlight>
-      </View>
+import { jsonToURLForm } from '../../Tool/DataFormat';
 
-      <View   style={styles.box}>
-      <Button title="Unsubscribe" onPress={() => this.props.navigation.navigate("Profile")} />
-      </View>
+const mapStateToProps = (state) => {
+ return {
+  userName: state.User.user.userName,
+  subscriptions: state.User.subscriptions,
+  token: state.Session.token
+ }
+};
 
-      </View>
-      <View style={styles.seperator}/>
-</View>
-         }
-      />
-
-      </View>
-    );
+const mapDispatchToProps = (dispatch) => {
+ return {
+  addSubscription: (subscription) => {
+   dispatch({ "type": UserActions.ADD_SUBSCRIPTION, "subscription": subscription });
+  },
+  removeSubscription: (subscription) => {
+   dispatch({ "type": UserActions.REMOVE_SUBSCRIPTION, "subscription": subscription });
   }
+ }
 }
+
+class Subscriptions extends Component {
+ constructor(props){
+  super(props);
+  this.state = {
+   authorities: [],
+   friends: []
+  }
+ }
+ componentWillMount(){
+  // When Component is mounting, get users available for subscription
+  let formBody = jsonToURLForm( { userName: this.props.userName } );
+  fetch('http://eventchat.azurewebsites.net/api/Users/index?'+ formBody,{
+   'method': 'GET',
+   headers: {
+    'Accept': 'application/json',
+    'Authorization': this.props.token
+   }
+  }).then( (res) => {
+   return res.json();
+  }).then( (res) => {
+   if(typeof(res.error) !== 'undefined'){
+    this.props.screenProps.onMessage('error', 'Failed to retrieve User List!');
+    return;
+   }
+   this.setState({friends: res });
+  }).catch( (err) => {
+   this.props.screenProps.onMessage('error', 'Failed to retrieve User List!');
+  })
+ }
+ render() {
+  return (
+   <View style={styles.container}>
+    <SectionList
+     sections={[
+      {title: 'Authorities', data: this.state.authorities},
+      {title: 'Friends', data: this.state.friends},
+     ]}
+     keyExtractor={(item) => 'key-' + item.UserName}
+     renderSectionHeader={({section}) => <Header title={section.title}/>}
+     renderItem={ ({item}) => {
+      return(
+       <List
+        item={item}
+        token={this.props.token}
+        userName={this.props.userName}
+        onMessage={this.props.screenProps.onMessage}
+        addSubscription={this.props.addSubscription}
+        removeSubscription={this.props.removeSubscription}
+       />
+      )
+      }
+     }
+    />
+   </View>
+  );
+ }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Subscriptions);

@@ -156,6 +156,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>True</Private>
@@ -268,7 +269,6 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\EventChatContext.cs" />
     <Compile Include="DAL\EventChatInitialiser.cs" />
     <Compile Include="Global.asax.cs">
@@ -290,6 +290,14 @@
     <Compile Include="Migrations\201710051239078_AddSubscriptionTable.Designer.cs">
       <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710071304556_AddSourceToEvent.cs" />
+    <Compile Include="Migrations\201710071304556_AddSourceToEvent.Designer.cs">
+      <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710071517320_RemoveDummyTable.cs" />
+    <Compile Include="Migrations\201710071517320_RemoveDummyTable.Designer.cs">
+      <DependentUpon>201710071517320_RemoveDummyTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Event.cs" />
@@ -298,10 +306,11 @@
     <Compile Include="Models\Repository\UserAuth.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Wrappers\CommentPost.cs" />
+    <Compile Include="Models\Wrappers\EventPost.cs" />
+    <Compile Include="Models\Wrappers\UserIndex.cs" />
     <Compile Include="Models\Wrappers\UserPost.cs" />
-    <Compile Include="Models\Wrappers\UserSubscribe.cs" />
+    <Compile Include="Models\Wrappers\UserSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -412,6 +421,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710051239078_AddSubscriptionTable.resx">
       <DependentUpon>201710051239078_AddSubscriptionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710071304556_AddSourceToEvent.resx">
+      <DependentUpon>201710071304556_AddSourceToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710071517320_RemoveDummyTable.resx">
+      <DependentUpon>201710071517320_RemoveDummyTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

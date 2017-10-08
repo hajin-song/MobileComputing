@@ -12,7 +12,6 @@ namespace eventchat.DAL
 
         }
         public DbSet<EventType> EventTypes { get; set; }
-        public DbSet<Value> Values { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Comment> Comments { get; set; }

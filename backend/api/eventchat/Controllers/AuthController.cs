@@ -29,17 +29,18 @@ namespace eventchat.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserPost user)
         {
-
-            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today};
+ 
+            User dbUser = new Models.User { UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName, Password = user.Password, Address = user.Address, DateOfBirth = DateTime.Today };
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            IdentityResult result =  await repo.Register(dbUser);
+            IdentityResult result = await repo.Register(dbUser);
             IHttpActionResult errResult = GetErrorResult(result);
-            if(errResult != null)
+            if (errResult != null)
             {
                 return errResult;
             }
             return Ok();
+ 
         }
 
         protected override void Dispose(bool disposing)

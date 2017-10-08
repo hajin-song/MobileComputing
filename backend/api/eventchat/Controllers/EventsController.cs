@@ -10,97 +10,65 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using eventchat.DAL;
 using eventchat.Models;
+using System.Device.Location;
+using eventchat.Models.Wrappers;
+using Newtonsoft.Json;
 
 namespace eventchat.Controllers
 {
+    [RoutePrefix("api/events")]
+    [Authorize]
     public class EventsController : ApiController
     {
         private EventChatContext db = new EventChatContext();
 
-        // GET: api/Events
-        public IQueryable<Event> GetEvents()
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("index")]
+        public List<Event> GetEvents(string longitude, string latitude)
         {
-            return db.Events;
-        }
-
-        // GET: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult GetEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            List<Event> result = new List<Event>();
+            
+            var events = db.Events.Include("images").Include("user").Include("type").ToList();
+            GeoCoordinate centre = new GeoCoordinate(double.Parse(latitude), double.Parse(longitude));
+            foreach(Event evt in events)
             {
-                return NotFound();
-            }
-
-            return Ok(@event);
-        }
-
-        // PUT: api/Events/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutEvent(int id, Event @event)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != @event.EventID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(@event).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EventExists(id))
+                GeoCoordinate cur = new GeoCoordinate(evt.Latitude, evt.Longitude);
+                if(centre.GetDistanceTo(cur) <= 20)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    result.Add(evt);
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return result;
         }
+
 
         // POST: api/Events
+        [HttpPost]
+        [Route("post")]
         [ResponseType(typeof(Event))]
-        public IHttpActionResult PostEvent(Event @event)
+        public IHttpActionResult PostEvent(EventPost evt)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                User user = db.Users.FirstOrDefault(x => x.UserName.Equals(evt.UserName));
+                if(user == null)
+                {
+                    return BadRequest("Invalid Username!");
+                }
+                Event dbEvent = new Event { Name = evt.Name, Detail = evt.Detail, Latitude = evt.Latitude, Longitude = evt.Longitude, user = user, Date = DateTime.Now };
+                db.Entry(dbEvent).State = EntityState.Added;
+
+                db.Events.Add(dbEvent);
+                db.SaveChanges();
+
+                return Ok(JsonConvert.SerializeObject(dbEvent));
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
-
-            db.Events.Add(@event);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = @event.EventID }, @event);
         }
 
-        // DELETE: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult DeleteEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            db.Events.Remove(@event);
-            db.SaveChanges();
-
-            return Ok(@event);
-        }
 
         protected override void Dispose(bool disposing)
         {

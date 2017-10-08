@@ -41,7 +41,8 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginTop: 3,
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    justifyContent: 'center'
   },
   horizontalBox: {
     flex: 1,

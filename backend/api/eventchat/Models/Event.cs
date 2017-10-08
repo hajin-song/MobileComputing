@@ -40,7 +40,12 @@ namespace eventchat.Models
         [Display(Name = "Latitude")]
         public Double Latitude { get; set; }
 
+        [Display(Name = "Source")]
+        public String Source { get; set; }
+
         public EventType type { get; set; }
+
+        public virtual User user { get; set; }
         public virtual ICollection<Comment> comments { get; set; }
         public virtual ICollection<Image> images { get; set; }
     }

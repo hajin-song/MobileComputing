@@ -4,6 +4,7 @@
 * React Native
 * [Camera Component](https://github.com/lwansbrough/react-native-camera) (REMOVED)
 * [Mapbox](https://github.com/mapbox/react-native-mapbox-gl)
+* SDK Ver - 25
 
 ## Documentation
 * [Wireframe](https://www.lucidchart.com/invitations/accept/55687bc7-a45b-40a6-bc0f-bda662d7e1d4)
